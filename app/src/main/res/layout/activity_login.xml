@@ -38,7 +38,7 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="108dp"
         android:text="@string/inicio_de_sesi_n"
         android:textAlignment="center"
         android:textColor="@color/white"
