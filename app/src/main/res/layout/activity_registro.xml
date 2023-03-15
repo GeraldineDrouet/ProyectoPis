@@ -178,6 +178,7 @@
         android:drawableLeft="@drawable/ic_action_passr"
         android:drawablePadding="13dp"
         android:hint="Contraseña"
+        android:inputType="textPassword"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="20sp"
