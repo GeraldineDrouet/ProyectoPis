@@ -98,7 +98,7 @@
 
 
     <EditText
-        android:id="@+id/et_nombre"
+        android:id="@+id/et_nombreAp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -130,7 +130,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_nombre"
+        app:layout_constraintTop_toBottomOf="@+id/et_nombreAp"
         app:layout_constraintWidth_percent=".9" />
 
     <EditText
@@ -157,7 +157,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:backgroundTint="@color/white"
-        android:drawableLeft="@drawable/ic_action_correoReg"
+        android:drawableLeft="@drawable/ic_action_maillog"
         android:drawablePadding="13dp"
         android:hint="@string/correo_electr_nico"
         android:textColor="@color/white"
@@ -175,7 +175,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/white"
-        android:drawableLeft="@drawable/ic_action_passReg"
+        android:drawableLeft="@drawable/ic_action_passr"
         android:drawablePadding="13dp"
         android:hint="Contraseña"
         android:textColor="@color/white"
