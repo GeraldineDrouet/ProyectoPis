@@ -48,6 +48,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
+        android:onClick="registrarse"
         android:id="@+id/buttonRegWel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -64,6 +65,7 @@
         app:layout_constraintWidth_percent=".7" />
 
     <TextView
+        android:onClick="loginWelcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/iniciar_sesi_n1"
