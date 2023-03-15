@@ -1,12 +1,16 @@
 package com.example.elperlanegra;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -15,11 +19,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.elperlanegra.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private FirebaseAuth authUser;
+    private FirebaseUser mUser;
+    Button btn_logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +38,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
+
+        authUser = FirebaseAuth.getInstance();
+        mUser = authUser.getCurrentUser();
+
+        btn_logout = findViewById(R.id.btn_logout);
+        //CLICK LISTENER PARA MÉTODO CERRAR SESIÓN
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                authUser.signOut();
+            }
+        });
+
+        //CUANDO EL USUARIO CIERRA SESIÓN VUELVE A WELCOME ACTIVITY
+        authUser.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null){
+                    Toast.makeText(MainActivity.this, "¡SESIÓN CERRADA!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
+                    finish();
+                }
+            }
+        });
+
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

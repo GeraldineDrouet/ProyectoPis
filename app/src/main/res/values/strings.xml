@@ -24,5 +24,6 @@
     <string name="contrase_alog">Contraseña</string>
     <string name="registrarse1">REGISTRARSE</string>
     <string name="iniciar_sesi_n1">Iniciar Sesión</string>
+    <string name="cerrar_sesi_n">Cerrar Sesión</string>
 
 </resources>
