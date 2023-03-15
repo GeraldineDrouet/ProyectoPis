@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +23,8 @@ public class LoginActivity extends AppCompatActivity {
     Button login;
     EditText correoLog, contrasenaLog;
     TextView registroEnLog;
-
     FirebaseAuth auth;
+    ProgressBar pb_log;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         auth = FirebaseAuth.getInstance();
+
+        pb_log = findViewById(R.id.pb_log);
+        pb_log.setVisibility(View.GONE);
 
         correoLog = findViewById(R.id.et_correoLog);
         contrasenaLog = findViewById(R.id.et_contrasenaLog);
@@ -81,9 +85,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
+                    pb_log.setVisibility(View.VISIBLE);
                     Toast.makeText(LoginActivity.this, "¡INICIO DE SESIÓN EXITOSO!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 } else {
+                    pb_log.setVisibility(View.GONE);
                     Toast.makeText(LoginActivity.this, "ERROR: " + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                 }
             }

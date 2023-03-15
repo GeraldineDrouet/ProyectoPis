@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,11 +27,15 @@ public class RegistroActivity extends AppCompatActivity {
     TextView loginEnRegistro;
     FirebaseAuth auth;
     FirebaseDatabase database;
+    ProgressBar pb_reg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
+
+        pb_reg = findViewById(R.id.pb_reg);
+        pb_reg.setVisibility(View.GONE);
 
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -111,10 +116,14 @@ public class RegistroActivity extends AppCompatActivity {
                     String id = task.getResult().getUser().getUid();
                     database.getReference().child("Users").child(id).setValue(userModel);
 
+                    pb_reg.setVisibility(View.VISIBLE);
+
                     Toast.makeText(RegistroActivity.this, "¡REGISTRO EXITOSO!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RegistroActivity.this, LoginActivity.class));
                 } else {
+                    pb_reg.setVisibility(View.GONE);
                     Toast.makeText(RegistroActivity.this, "ERROR: " + task.getException(), Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
