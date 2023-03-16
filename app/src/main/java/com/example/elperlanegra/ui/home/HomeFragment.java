@@ -15,6 +15,8 @@ import com.example.elperlanegra.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
+    //POPULAR ITEMS
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

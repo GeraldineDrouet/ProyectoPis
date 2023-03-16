@@ -51,6 +51,10 @@ dependencies {
     //IMAGEVIEW REDONDEADA
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
+    //GLIDE
+    implementation 'com.github.bumptech.glide:glide:4.15.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
+
     configurations.implementation {
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
     }
