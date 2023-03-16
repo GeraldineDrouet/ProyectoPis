@@ -12,14 +12,20 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.elperlanegra.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_perfil"
+        android:name="com.example.elperlanegra.ui.perfil.PerfilFragment"
+        android:label="@string/perfil"
+        tools:layout="@layout/fragment_perfil" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.elperlanegra.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_carrito"
+        android:name="com.example.elperlanegra.ui.carrito.CarritoFragment"
+        android:label="@string/carrito"
+        tools:layout="@layout/fragment_carrito" />
+
+    <fragment
+        android:id="@+id/nav_pedidos"
+        android:name="com.example.elperlanegra.MisPedidosFragment"
+        android:label="@string/mispedidos"
+        tools:layout="@layout/fragment_mis_pedidos" />
 </navigation>

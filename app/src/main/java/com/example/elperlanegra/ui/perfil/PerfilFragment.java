@@ -1,4 +1,4 @@
-package com.example.elperlanegra.ui.home;
+package com.example.elperlanegra.ui.perfil;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,15 +11,17 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.elperlanegra.R;
-import com.example.elperlanegra.databinding.FragmentHomeBinding;
 
-public class HomeFragment extends Fragment {
+
+public class PerfilFragment extends Fragment {
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        View root = inflater.inflate(R.layout.fragment_perfil, container, false);
         return root;
     }
+
 
 }

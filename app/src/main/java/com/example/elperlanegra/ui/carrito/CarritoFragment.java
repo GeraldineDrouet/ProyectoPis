@@ -1,25 +1,25 @@
-package com.example.elperlanegra.ui.home;
+package com.example.elperlanegra.ui.carrito;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.elperlanegra.R;
-import com.example.elperlanegra.databinding.FragmentHomeBinding;
 
-public class HomeFragment extends Fragment {
+public class CarritoFragment extends Fragment {
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        View root = inflater.inflate(R.layout.fragment_carrito, container, false);
         return root;
     }
+
 
 }
