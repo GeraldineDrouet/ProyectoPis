@@ -6,5 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.carrito.CarritoFragment">
 
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="CARRITO DE COMPRAS"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
