@@ -1,10 +1,13 @@
 package com.example.elperlanegra.ui.home;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,9 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
+    ScrollView scrollView;
+    ProgressBar home_pb;
+
     //RECYCLERVIEW
     RecyclerView popularRec, categoryRec, desayunoRec;
 
@@ -51,6 +57,7 @@ public class HomeFragment extends Fragment {
     List<DesayunoModel> desayunoModelList;
     DesayunoAdapter desayunoAdapter;
 
+    @SuppressLint("MissingInflatedId")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -59,6 +66,11 @@ public class HomeFragment extends Fragment {
         popularRec = root.findViewById(R.id.pop_rec);
         categoryRec = root.findViewById(R.id.cat_rec);
         desayunoRec = root.findViewById(R.id.desayuno_rec);
+        scrollView = root.findViewById(R.id.sv_home1);
+        home_pb = root.findViewById(R.id.home_pb);
+
+        home_pb.setVisibility(View.VISIBLE);
+        scrollView.setVisibility(View.GONE);
 
         //Popular items
         popularRec.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
@@ -76,6 +88,9 @@ public class HomeFragment extends Fragment {
                                 PopularModel popularModel = document.toObject(PopularModel.class);
                                 popularModelList.add(popularModel);
                                 popularAdapter.notifyDataSetChanged();
+
+                                home_pb.setVisibility(View.GONE);
+                                scrollView.setVisibility(View.VISIBLE);
                             }
                         } else {
                             Toast.makeText(getActivity(), "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
