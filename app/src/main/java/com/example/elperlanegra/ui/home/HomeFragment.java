@@ -16,9 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.elperlanegra.R;
 import com.example.elperlanegra.adaptadores.CategoryAdapter;
+import com.example.elperlanegra.adaptadores.DesayunoAdapter;
 import com.example.elperlanegra.adaptadores.PopularAdapter;
 import com.example.elperlanegra.databinding.FragmentHomeBinding;
 import com.example.elperlanegra.modelos.CategoryModel;
+import com.example.elperlanegra.modelos.DesayunoModel;
 import com.example.elperlanegra.modelos.PopularModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,7 +34,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     //RECYCLERVIEW
-    RecyclerView popularRec, categoryRec;
+    RecyclerView popularRec, categoryRec, desayunoRec;
 
     //FIREBASE
     FirebaseFirestore db;
@@ -45,6 +47,10 @@ public class HomeFragment extends Fragment {
     List<CategoryModel> categoryModelList;
     CategoryAdapter categoryAdapter;
 
+    //DESAYUNO ITEMS
+    List<DesayunoModel> desayunoModelList;
+    DesayunoAdapter desayunoAdapter;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -52,6 +58,7 @@ public class HomeFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         popularRec = root.findViewById(R.id.pop_rec);
         categoryRec = root.findViewById(R.id.cat_rec);
+        desayunoRec = root.findViewById(R.id.desayuno_rec);
 
         //Popular items
         popularRec.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
@@ -92,6 +99,29 @@ public class HomeFragment extends Fragment {
                                 CategoryModel categoryModel = document.toObject(CategoryModel.class);
                                 categoryModelList.add(categoryModel);
                                 categoryAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            Toast.makeText(getActivity(), "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+        //Desayuno items
+        desayunoRec.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+        desayunoModelList = new ArrayList<>();
+        desayunoAdapter = new DesayunoAdapter(getActivity(), desayunoModelList);
+        desayunoRec.setAdapter(desayunoAdapter);
+
+        db.collection("Desayunos")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                DesayunoModel desayunoModel = document.toObject(DesayunoModel.class);
+                                desayunoModelList.add(desayunoModel);
+                                desayunoAdapter.notifyDataSetChanged();
                             }
                         } else {
                             Toast.makeText(getActivity(), "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
