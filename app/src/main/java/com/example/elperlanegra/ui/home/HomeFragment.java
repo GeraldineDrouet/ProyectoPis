@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.elperlanegra.R;
+import com.example.elperlanegra.adaptadores.CategoryAdapter;
 import com.example.elperlanegra.adaptadores.PopularAdapter;
 import com.example.elperlanegra.databinding.FragmentHomeBinding;
+import com.example.elperlanegra.modelos.CategoryModel;
 import com.example.elperlanegra.modelos.PopularModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,7 +32,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     //RECYCLERVIEW
-    RecyclerView popularRec;
+    RecyclerView popularRec, categoryRec;
 
     //FIREBASE
     FirebaseFirestore db;
@@ -39,12 +41,17 @@ public class HomeFragment extends Fragment {
     List<PopularModel> popularModelList;
     PopularAdapter popularAdapter;
 
+    //CATEGORY ITEMS
+    List<CategoryModel> categoryModelList;
+    CategoryAdapter categoryAdapter;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         db = FirebaseFirestore.getInstance();
         popularRec = root.findViewById(R.id.pop_rec);
+        categoryRec = root.findViewById(R.id.cat_rec);
 
         //Popular items
         popularRec.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
@@ -62,6 +69,29 @@ public class HomeFragment extends Fragment {
                                 PopularModel popularModel = document.toObject(PopularModel.class);
                                 popularModelList.add(popularModel);
                                 popularAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            Toast.makeText(getActivity(), "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+        //Category items
+        categoryRec.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+        categoryModelList = new ArrayList<>();
+        categoryAdapter = new CategoryAdapter(getActivity(), categoryModelList);
+        categoryRec.setAdapter(categoryAdapter);
+
+        db.collection("Categorias")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                CategoryModel categoryModel = document.toObject(CategoryModel.class);
+                                categoryModelList.add(categoryModel);
+                                categoryAdapter.notifyDataSetChanged();
                             }
                         } else {
                             Toast.makeText(getActivity(), "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
