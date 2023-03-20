@@ -32,7 +32,7 @@
                 android:drawablePadding="5dp"
                 android:background="@drawable/search_gb"
                 android:padding="13dp"
-                android:hint="Busca tu paltillo aquí..."
+                android:hint="Busca tu platillo aquí..."
                 android:elevation="3dp"/>
 
             <LinearLayout
