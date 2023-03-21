@@ -1,6 +1,8 @@
 package com.example.elperlanegra.adaptadores;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.elperlanegra.R;
+import com.example.elperlanegra.VerTodoActivity;
 import com.example.elperlanegra.modelos.PopularModel;
 
 import java.util.List;
@@ -33,13 +36,22 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PopularAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PopularAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         Glide.with(context).load(popularModelList.get(position).getImg_url()).into(holder.popImg);
         holder.nombre.setText(popularModelList.get(position).getNombre());
         holder.descripcion.setText(popularModelList.get(position).getDescripcion());
         holder.rating.setText(popularModelList.get(position).getRating());
         holder.promo.setText(popularModelList.get(position).getPromo());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentPP = new Intent(context, VerTodoActivity.class);
+                intentPP.putExtra("tipo", popularModelList.get(position).getTipo());
+                context.startActivity(intentPP);
+            }
+        });
     }
 
     @Override
