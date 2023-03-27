@@ -6,12 +6,12 @@ public class VerTodoModel {
     String tipo;
     String rating;
     String img_url;
-    int precio;
+    double precio;
 
     public VerTodoModel() {
     }
 
-    public VerTodoModel(String nombre, String descripcion, String tipo, String rating, String img_url, int precio) {
+    public VerTodoModel(String nombre, String descripcion, String tipo, String rating, String img_url, double precio) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.tipo = tipo;
@@ -60,11 +60,11 @@ public class VerTodoModel {
         this.img_url = img_url;
     }
 
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 }
