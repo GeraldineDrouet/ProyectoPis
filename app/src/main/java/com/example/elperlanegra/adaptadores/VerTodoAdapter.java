@@ -40,7 +40,7 @@ public class VerTodoAdapter extends RecyclerView.Adapter<VerTodoAdapter.ViewHold
         holder.nombre.setText(verTodoModelList.get(position).getNombre());
         holder.descripcion.setText(verTodoModelList.get(position).getDescripcion());
         holder.rating.setText(verTodoModelList.get(position).getRating());
-        holder.precio.setText(verTodoModelList.get(position).getPrecio()+"c/u");
+        holder.precio.setText(verTodoModelList.get(position).getPrecio()+"");
     }
 
     @Override

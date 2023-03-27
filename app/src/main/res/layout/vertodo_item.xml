@@ -14,12 +14,12 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:background="@drawable/border"
             android:id="@+id/viewall_img"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/platovacio"
-            android:scaleType="centerCrop"/>
+            android:background="@drawable/border"
+            android:scaleType="centerCrop"
+            android:src="@drawable/platovacio" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -102,13 +102,12 @@
             </LinearLayout>
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/ic_action_arrow"
-                android:layout_gravity="end"
-                app:tint="#CDDC39"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"/>
+                android:layout_gravity="right"
+                android:layout_marginTop="-10dp"
+                app:tint="#CDDC39"/>
 
         </LinearLayout>
 
