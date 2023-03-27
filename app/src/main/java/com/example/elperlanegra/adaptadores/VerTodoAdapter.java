@@ -1,6 +1,7 @@
 package com.example.elperlanegra.adaptadores;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.elperlanegra.DetallesActivity;
 import com.example.elperlanegra.R;
 import com.example.elperlanegra.VerTodoActivity;
 import com.example.elperlanegra.modelos.VerTodoModel;
@@ -41,6 +43,15 @@ public class VerTodoAdapter extends RecyclerView.Adapter<VerTodoAdapter.ViewHold
         holder.descripcion.setText(verTodoModelList.get(position).getDescripcion());
         holder.rating.setText(verTodoModelList.get(position).getRating());
         holder.precio.setText(verTodoModelList.get(position).getPrecio()+"");
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intendD = new Intent(context, DetallesActivity.class);
+                intendD.putExtra("detalle", verTodoModelList.get(position));
+                context.startActivity(intendD);
+            }
+        });
     }
 
     @Override

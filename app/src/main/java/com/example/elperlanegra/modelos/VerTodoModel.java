@@ -1,6 +1,8 @@
 package com.example.elperlanegra.modelos;
 
-public class VerTodoModel {
+import java.io.Serializable;
+
+public class VerTodoModel implements Serializable {
     String nombre;
     String descripcion;
     String tipo;
