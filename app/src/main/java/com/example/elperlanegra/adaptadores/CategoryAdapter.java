@@ -1,6 +1,7 @@
 package com.example.elperlanegra.adaptadores;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.elperlanegra.R;
+import com.example.elperlanegra.VerTodoActivity;
 import com.example.elperlanegra.modelos.CategoryModel;
 
 import java.util.List;
@@ -37,6 +39,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         Glide.with(context).load(categoryModelList.get(position).getImg_url()).into(holder.catImg);
         holder.nombre.setText(categoryModelList.get(position).getNombre());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentPP = new Intent(context, VerTodoActivity.class);
+                intentPP.putExtra("tipo", categoryModelList.get(position).getTipo());
+                context.startActivity(intentPP);
+            }
+        });
     }
 
     @Override

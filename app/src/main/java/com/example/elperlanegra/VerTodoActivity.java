@@ -83,6 +83,73 @@ public class VerTodoActivity extends AppCompatActivity {
             });
         }
 
+        ///////CATEGORÍAS///////
+        /////////Bebidas//////////////
+        if (type.equalsIgnoreCase("bebida")){
+            firestore.collection("AllProducts").whereEqualTo("tipo", "bebida").get().addOnCompleteListener(task -> {
+                for (DocumentSnapshot documentSnapshot:task.getResult().getDocuments()) {
+                    VerTodoModel verTodoModel = documentSnapshot.toObject(VerTodoModel.class);
+                    verTodoModelList.add(verTodoModel);
+                    verTodoAdapter.notifyDataSetChanged();
+                }
+            });
+        }
+
+        /////////Mariscos//////////////
+        if (type.equalsIgnoreCase("marisco")){
+            firestore.collection("AllProducts").whereEqualTo("tipo", "marisco").get().addOnCompleteListener(task -> {
+                for (DocumentSnapshot documentSnapshot:task.getResult().getDocuments()) {
+                    VerTodoModel verTodoModel = documentSnapshot.toObject(VerTodoModel.class);
+                    verTodoModelList.add(verTodoModel);
+                    verTodoAdapter.notifyDataSetChanged();
+                }
+            });
+        }
+
+        /////////Picadas//////////////
+        if (type.equalsIgnoreCase("picada")){
+            firestore.collection("AllProducts").whereEqualTo("tipo", "picada").get().addOnCompleteListener(task -> {
+                for (DocumentSnapshot documentSnapshot:task.getResult().getDocuments()) {
+                    VerTodoModel verTodoModel = documentSnapshot.toObject(VerTodoModel.class);
+                    verTodoModelList.add(verTodoModel);
+                    verTodoAdapter.notifyDataSetChanged();
+                }
+            });
+        }
+
+        ////////DESAYUNOS////////
+        /////////Bolones//////////////
+        if (type.equalsIgnoreCase("bolon")){
+            firestore.collection("AllProducts").whereEqualTo("tipo", "bolon").get().addOnCompleteListener(task -> {
+                for (DocumentSnapshot documentSnapshot:task.getResult().getDocuments()) {
+                    VerTodoModel verTodoModel = documentSnapshot.toObject(VerTodoModel.class);
+                    verTodoModelList.add(verTodoModel);
+                    verTodoAdapter.notifyDataSetChanged();
+                }
+            });
+        }
+
+        /////////Muchines//////////////
+        if (type.equalsIgnoreCase("muchin")){
+            firestore.collection("AllProducts").whereEqualTo("tipo", "muchin").get().addOnCompleteListener(task -> {
+                for (DocumentSnapshot documentSnapshot:task.getResult().getDocuments()) {
+                    VerTodoModel verTodoModel = documentSnapshot.toObject(VerTodoModel.class);
+                    verTodoModelList.add(verTodoModel);
+                    verTodoAdapter.notifyDataSetChanged();
+                }
+            });
+        }
+
+        /////////Café//////////////
+        if (type.equalsIgnoreCase("cafe")){
+            firestore.collection("AllProducts").whereEqualTo("tipo", "cafe").get().addOnCompleteListener(task -> {
+                for (DocumentSnapshot documentSnapshot:task.getResult().getDocuments()) {
+                    VerTodoModel verTodoModel = documentSnapshot.toObject(VerTodoModel.class);
+                    verTodoModelList.add(verTodoModel);
+                    verTodoAdapter.notifyDataSetChanged();
+                }
+            });
+        }
     }
 
 }
