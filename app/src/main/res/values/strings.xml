@@ -32,5 +32,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="mispedidos">Mis Pedidos</string>
     <string name="mis_pedidos">Mis Pedidos</string>
+    <string name="descripciondetalles">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In faucibus pulvinar metus nec sodales. Fusce sed lacus et ex imperdiet pharetra. Duis id elit gravida.</string>
 
 </resources>
