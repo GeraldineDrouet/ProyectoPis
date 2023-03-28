@@ -30,45 +30,57 @@
         app:layout_constraintTop_toBottomOf="@+id/tb_detalles" />
 
     <TextView
+        android:id="@+id/nombre_detalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alice"
+        android:text="Nombre"
+        android:textColor="#FFEB3B"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detallesImg" />
+
+    <TextView
         android:id="@+id/precio_detalles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:fontFamily="@font/alice"
         android:text="Precio: $25.99"
         android:textColor="@color/white"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detallesImg" />
+        app:layout_constraintTop_toBottomOf="@+id/nombre_detalle" />
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="65dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="14dp"
+        android:layout_width="45dp"
+        android:layout_height="25dp"
         android:layout_marginRight="10dp"
         android:src="@drawable/star"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detallesImg" />
+        app:layout_constraintTop_toBottomOf="@+id/nombre_detalle" />
 
     <TextView
         android:id="@+id/rating_detalles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:fontFamily="@font/alice"
         android:text="5.0"
         android:textColor="@color/white"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/imageView4"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/precio_detalles"
-        app:layout_constraintTop_toBottomOf="@+id/detallesImg" />
+        app:layout_constraintTop_toBottomOf="@+id/nombre_detalle" />
 
     <TextView
         android:id="@+id/textView6"
