@@ -1,12 +1,19 @@
 package com.example.elperlanegra.ui.carrito;
 
+import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,7 +39,9 @@ public class CarritoFragment extends Fragment {
     RecyclerView rv_carrito;
     CarritoAdapter carritoAdapter;
     List<CarritoModel> carritoModelList;
+    TextView overTotalAmount;
 
+    @SuppressLint("MissingInflatedId")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -43,6 +52,11 @@ public class CarritoFragment extends Fragment {
 
         rv_carrito = root.findViewById(R.id.rv_carrito);
         rv_carrito.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        overTotalAmount = root.findViewById(R.id.totalamount);
+
+        LocalBroadcastManager.getInstance(getActivity())
+                .registerReceiver(mMessageReceiver, new IntentFilter("MiPrecioTotal"));
 
         carritoModelList = new ArrayList<>();
         carritoAdapter = new CarritoAdapter(getActivity(), carritoModelList);
@@ -64,6 +78,14 @@ public class CarritoFragment extends Fragment {
 
         return root;
     }
+
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            double totalBill = intent.getDoubleExtra("montoTotal", 0.00);
+            overTotalAmount.setText("TOTAL A PAGAR: $" + totalBill);
+        }
+    };
 
 
 }

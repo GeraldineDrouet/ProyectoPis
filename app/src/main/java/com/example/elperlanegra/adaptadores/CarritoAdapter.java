@@ -1,6 +1,7 @@
 package com.example.elperlanegra.adaptadores;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +22,7 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
 
     Context context;
     List<CarritoModel> carritoModelList;
+    double precioT = 0;
 
     public CarritoAdapter(Context context, List<CarritoModel> carritoModelList) {
         this.context = context;
@@ -43,6 +46,12 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
         holder.hora.setText(carritoModelList.get(position).getHora());
         holder.cantidad.setText(carritoModelList.get(position).getCantidad());
         holder.precioTotal.setText(carritoModelList.get(position).getPrecioTotal() + "");
+
+        /////Mostrar precio total en el fragmento Carrito/////
+        precioT = precioT + carritoModelList.get(position).getPrecioTotal();
+        Intent intentPrecio = new Intent("MiPrecioTotal");
+        intentPrecio.putExtra("montoTotal", precioT);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intentPrecio);
     }
 
     @Override
