@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="opciones_spinner_producto">
+        <item>Elegir...</item>
+        <item>Fanta</item>
+        <item>Coca-Cola Zero</item>
+        <item>Coca-Cola Original</item>
+        <item>Sprite</item>
+        <item>Pepsi</item>
+        <item>Inca Kola</item>
+        <item>Fioravanti</item>
+    </string-array>
+
+
+
+</resources>

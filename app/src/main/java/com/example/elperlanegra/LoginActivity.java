@@ -3,12 +3,15 @@ package com.example.elperlanegra;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,9 +26,11 @@ public class LoginActivity extends AppCompatActivity {
     Button login;
     EditText correoLog, contrasenaLog;
     TextView registroEnLog;
+    ImageView mostarPassLog;
     FirebaseAuth auth;
     ProgressBar pb_log;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
 
         pb_log = findViewById(R.id.pb_log);
         pb_log.setVisibility(View.GONE);
+
+        mostarPassLog = findViewById(R.id.show_passLog);
 
         correoLog = findViewById(R.id.et_correoLog);
         contrasenaLog = findViewById(R.id.et_contrasenaLog);
@@ -54,6 +61,22 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loginUser();
+            }
+        });
+
+        //ClickListener para mostrar contraseña
+        mostarPassLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int inputType = contrasenaLog.getInputType();
+                if (inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    contrasenaLog.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    mostarPassLog.setImageResource(R.drawable.ic_action_visibility_off);
+                } else {
+                    contrasenaLog.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    mostarPassLog.setImageResource(R.drawable.ic_action_visibility_on);
+                }
+                contrasenaLog.setSelection(contrasenaLog.length());
             }
         });
     }

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,11 @@ import com.example.elperlanegra.modelos.VerTodoModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -38,6 +44,7 @@ public class DetallesActivity extends AppCompatActivity {
 
     ImageView detailedImg, addItem, removeItem, carritoImg;
     TextView nombre, precio, descripcion, rating, cantidad;
+
     Button addTocart;
 
     int cantTotal = 1;
@@ -48,6 +55,7 @@ public class DetallesActivity extends AppCompatActivity {
 
     FirebaseFirestore firestore;
     FirebaseAuth auth;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -82,6 +90,7 @@ public class DetallesActivity extends AppCompatActivity {
         rating = findViewById(R.id.rating_detalles);
         nombre = findViewById(R.id.nombre_detalle);
         carritoImg = findViewById(R.id.carritoImag);
+
 
         if (verTodoModel != null){
             Glide.with(getApplicationContext()).load(verTodoModel.getImg_url()).into(detailedImg);

@@ -54,7 +54,7 @@
             android:background="@color/teal_200"
             android:fontFamily="@font/alice"
             android:padding="10dp"
-            android:text="TOTAL: $450.00"
+            android:text="TOTAL: $0.00"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="28sp"
@@ -66,8 +66,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_carrito"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
+            android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/pay_bt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintVertical_bias="0"

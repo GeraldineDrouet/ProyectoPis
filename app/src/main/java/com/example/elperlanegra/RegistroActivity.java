@@ -1,14 +1,19 @@
 package com.example.elperlanegra;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +23,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistroActivity extends AppCompatActivity {
@@ -25,8 +33,10 @@ public class RegistroActivity extends AppCompatActivity {
     Button registro;
     EditText nombreApellido, direccion, telefono, correo, contrasena;
     TextView loginEnRegistro;
+    ImageView mostarPass;
     FirebaseAuth auth;
     FirebaseDatabase database;
+
     ProgressBar pb_reg;
 
     @Override
@@ -39,6 +49,8 @@ public class RegistroActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+
+        mostarPass = findViewById(R.id.show_pass);
 
         nombreApellido = findViewById(R.id.et_nombreAp);
         direccion = findViewById(R.id.et_direccion);
@@ -62,6 +74,22 @@ public class RegistroActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 createUser();
+            }
+        });
+
+        //ClickListener para mostrar contraseña
+        mostarPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int inputType = contrasena.getInputType();
+                if (inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    contrasena.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    mostarPass.setImageResource(R.drawable.ic_action_visibility_off);
+                } else {
+                    contrasena.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    mostarPass.setImageResource(R.drawable.ic_action_visibility_on);
+                }
+                contrasena.setSelection(contrasena.length());
             }
         });
     }
@@ -114,6 +142,7 @@ public class RegistroActivity extends AppCompatActivity {
 
                     UserModel userModel = new UserModel(userName,userAddress,userPhone,userEmail,userPass);
                     String id = task.getResult().getUser().getUid();
+
                     database.getReference().child("Users").child(id).setValue(userModel);
 
                     pb_reg.setVisibility(View.VISIBLE);
