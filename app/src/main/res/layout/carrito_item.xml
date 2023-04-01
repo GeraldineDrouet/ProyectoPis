@@ -197,8 +197,14 @@
 
             </LinearLayout>
 
+            <ImageView
+                android:id="@+id/delete_item"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_action_eliminar"/>
 
         </LinearLayout>
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

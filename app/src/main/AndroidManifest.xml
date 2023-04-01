@@ -12,12 +12,17 @@
         android:theme="@style/Theme.ElPerlaNegra"
         tools:targetApi="31">
         <activity
+            android:name=".OrdenActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ElPerlaNegra.NoActionBar">
+
+        </activity>
+        <activity
             android:name=".DetallesActivity"
             android:exported="false"
             android:theme="@style/Theme.ElPerlaNegra.NoActionBar">
 
         </activity>
-
         <activity
             android:name=".VerTodoActivity"
             android:exported="false"
@@ -27,7 +32,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".WelcomeActivity"
             android:exported="true">
@@ -37,20 +41,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".RegistroActivity"
             android:exported="false" />
-
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="false"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ElPerlaNegra.NoActionBar"></activity>
+            android:theme="@style/Theme.ElPerlaNegra.NoActionBar" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

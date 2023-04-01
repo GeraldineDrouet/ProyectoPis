@@ -12,15 +12,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.elperlanegra.OrdenActivity;
 import com.example.elperlanegra.R;
 import com.example.elperlanegra.adaptadores.CarritoAdapter;
 import com.example.elperlanegra.modelos.CarritoModel;
@@ -39,9 +43,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CarritoFragment extends Fragment {
 
@@ -51,9 +57,11 @@ public class CarritoFragment extends Fragment {
     DatabaseReference dbUsuarios;
 
     RecyclerView rv_carrito;
+    ConstraintLayout empty;
     CarritoAdapter carritoAdapter;
     List<CarritoModel> carritoModelList;
     TextView overTotalAmount;
+    Button payNow;
     UserModel modelUser;
     ProgressBar progressBar;
 
@@ -76,6 +84,10 @@ public class CarritoFragment extends Fragment {
         rv_carrito.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv_carrito.setVisibility(View.GONE);
 
+        empty = root.findViewById(R.id.constraint1);
+
+        payNow = root.findViewById(R.id.pay_btn);
+
         overTotalAmount = root.findViewById(R.id.totalamount);
 
         LocalBroadcastManager.getInstance(getActivity())
@@ -86,13 +98,18 @@ public class CarritoFragment extends Fragment {
         rv_carrito.setAdapter(carritoAdapter);
 
 
-        db.collection("Carrito").document(auth.getCurrentUser().getUid())
-                .collection("CurrentUser").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("CurrentUser").document(auth.getCurrentUser().getUid())
+                .collection("Carrito").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
+
+                                String documentId = documentSnapshot.getId();
+
                                 CarritoModel carritoModel = documentSnapshot.toObject(CarritoModel.class);
+
+                                carritoModel.setDocumentId(documentId);
                                 carritoModelList.add(carritoModel);
                                 carritoAdapter.notifyDataSetChanged();
                                 progressBar.setVisibility(View.GONE);
@@ -101,6 +118,51 @@ public class CarritoFragment extends Fragment {
                         }
                     }
                 });
+
+
+        progressBar.setVisibility(View.GONE);
+
+        ///////PARA MOSTRAR EL CONSTRAINT LAYOUT CUANDO NO HAY ITEMS
+        carritoAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                if (carritoAdapter.getItemCount() == 0) {
+                    empty.setVisibility(View.VISIBLE);
+                    payNow.setEnabled(false);
+
+                } else {
+                    empty.setVisibility(View.GONE);
+                    payNow.setEnabled(true);
+                    payNow.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intentO = new Intent(getContext(), OrdenActivity.class);
+                            intentO.putExtra("itemList", (Serializable) carritoModelList);
+                            startActivity(intentO);
+                        }
+                    });
+                }
+            }
+        });
+
+        payNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!payNow.isEnabled()) {
+                    Toast.makeText(getContext(), "El botón está deshabilitado", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        /*if (carritoAdapter.getItemCount() == 0) {
+            empty.setVisibility(View.VISIBLE);
+            rv_carrito.setVisibility(View.GONE);
+        } else {
+            empty.setVisibility(View.GONE);
+            rv_carrito.setVisibility(View.VISIBLE);
+        }*/
 
         return root;
     }

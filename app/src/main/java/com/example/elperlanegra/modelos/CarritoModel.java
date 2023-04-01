@@ -1,6 +1,8 @@
 package com.example.elperlanegra.modelos;
 
-public class CarritoModel {
+import java.io.Serializable;
+
+public class CarritoModel implements Serializable {
     String nombre;
     String precio;
     String fecha;
@@ -8,6 +10,7 @@ public class CarritoModel {
     String cantidad;
     String img;
     double precioTotal;
+    String documentId;
 
     public CarritoModel() {
     }
@@ -20,6 +23,14 @@ public class CarritoModel {
         this.cantidad = cantidad;
         this.img = img;
         this.precioTotal = precioTotal;
+    }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 
     public String getNombre() {
