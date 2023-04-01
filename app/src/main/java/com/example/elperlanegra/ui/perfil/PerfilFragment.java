@@ -1,9 +1,11 @@
 package com.example.elperlanegra.ui.perfil;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +42,7 @@ public class PerfilFragment extends Fragment {
     List<UserModel> userModelList;
     DatosActualesAdapter datosActualesAdapter;
 
+    @SuppressLint("MissingInflatedId")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_perfil, container, false);
@@ -48,6 +51,7 @@ public class PerfilFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         usersRef = db.getReference("Users").child(auth.getUid());
+
 
         datosActuales_rec = root.findViewById(R.id.datosActuales_rec);
         datosActuales_rec.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
@@ -69,9 +73,12 @@ public class PerfilFragment extends Fragment {
                     String correo = user.getEmail();
                     String telefono = user.getTelefono();
 
+
                     String uid = datasnapshot.getKey();
-                } datosActualesAdapter.notifyDataSetChanged();
+                } datosActualesAdapter.notifyDataSetChanged(); ;
+
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

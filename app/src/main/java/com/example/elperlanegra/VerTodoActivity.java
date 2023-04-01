@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.elperlanegra.adaptadores.VerTodoAdapter;
 import com.example.elperlanegra.modelos.VerTodoModel;
@@ -37,6 +39,8 @@ public class VerTodoActivity extends AppCompatActivity {
     VerTodoAdapter verTodoAdapter;
     List<VerTodoModel> verTodoModelList;
 
+    ProgressBar progressBar;
+
 
     @SuppressLint({"MissingInflatedId", "NotifyDataSetChanged"})
     @Override
@@ -48,12 +52,15 @@ public class VerTodoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        firestore = FirebaseFirestore.getInstance();
+        progressBar = findViewById(R.id.pb_vertodo);
+        progressBar.setVisibility(View.VISIBLE);
 
+        firestore = FirebaseFirestore.getInstance();
 
         String type = getIntent().getStringExtra("tipo");
         //String type = String.valueOf(getIntent().getStringArrayListExtra("tipo"));
         verTodorec = findViewById(R.id.vertodo_rec);
+        verTodorec.setVisibility(View.GONE);
         verTodorec.setLayoutManager(new LinearLayoutManager(this));
 
         verTodoModelList = new ArrayList<>();
@@ -68,6 +75,8 @@ public class VerTodoActivity extends AppCompatActivity {
                     VerTodoModel verTodoModel = documentSnapshot.toObject(VerTodoModel.class);
                     verTodoModelList.add(verTodoModel);
                     verTodoAdapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
+                    verTodorec.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -79,6 +88,8 @@ public class VerTodoActivity extends AppCompatActivity {
                     VerTodoModel verTodoModel = documentSnapshot.toObject(VerTodoModel.class);
                     verTodoModelList.add(verTodoModel);
                     verTodoAdapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
+                    verTodorec.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -91,6 +102,8 @@ public class VerTodoActivity extends AppCompatActivity {
                     VerTodoModel verTodoModel = documentSnapshot.toObject(VerTodoModel.class);
                     verTodoModelList.add(verTodoModel);
                     verTodoAdapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
+                    verTodorec.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -102,6 +115,8 @@ public class VerTodoActivity extends AppCompatActivity {
                     VerTodoModel verTodoModel = documentSnapshot.toObject(VerTodoModel.class);
                     verTodoModelList.add(verTodoModel);
                     verTodoAdapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
+                    verTodorec.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -113,6 +128,8 @@ public class VerTodoActivity extends AppCompatActivity {
                     VerTodoModel verTodoModel = documentSnapshot.toObject(VerTodoModel.class);
                     verTodoModelList.add(verTodoModel);
                     verTodoAdapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
+                    verTodorec.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -125,6 +142,8 @@ public class VerTodoActivity extends AppCompatActivity {
                     VerTodoModel verTodoModel = documentSnapshot.toObject(VerTodoModel.class);
                     verTodoModelList.add(verTodoModel);
                     verTodoAdapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
+                    verTodorec.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -136,6 +155,8 @@ public class VerTodoActivity extends AppCompatActivity {
                     VerTodoModel verTodoModel = documentSnapshot.toObject(VerTodoModel.class);
                     verTodoModelList.add(verTodoModel);
                     verTodoAdapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
+                    verTodorec.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -147,6 +168,8 @@ public class VerTodoActivity extends AppCompatActivity {
                     VerTodoModel verTodoModel = documentSnapshot.toObject(VerTodoModel.class);
                     verTodoModelList.add(verTodoModel);
                     verTodoAdapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
+                    verTodorec.setVisibility(View.VISIBLE);
                 }
             });
         }

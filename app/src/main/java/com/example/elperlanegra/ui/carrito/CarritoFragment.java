@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -54,6 +55,7 @@ public class CarritoFragment extends Fragment {
     List<CarritoModel> carritoModelList;
     TextView overTotalAmount;
     UserModel modelUser;
+    ProgressBar progressBar;
 
     @SuppressLint("MissingInflatedId")
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -63,11 +65,16 @@ public class CarritoFragment extends Fragment {
 
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
-        currentUser = auth.getCurrentUser();
-        dbUsuarios = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        progressBar = root.findViewById(R.id.pb_carrito);
+        progressBar.setVisibility(View.VISIBLE);
+
+        /*currentUser = auth.getCurrentUser();
+        dbUsuarios = FirebaseDatabase.getInstance().getReference().child("Users");*/
 
         rv_carrito = root.findViewById(R.id.rv_carrito);
         rv_carrito.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv_carrito.setVisibility(View.GONE);
 
         overTotalAmount = root.findViewById(R.id.totalamount);
 
@@ -88,6 +95,8 @@ public class CarritoFragment extends Fragment {
                                 CarritoModel carritoModel = documentSnapshot.toObject(CarritoModel.class);
                                 carritoModelList.add(carritoModel);
                                 carritoAdapter.notifyDataSetChanged();
+                                progressBar.setVisibility(View.GONE);
+                                rv_carrito.setVisibility(View.VISIBLE);
                             }
                         }
                     }
