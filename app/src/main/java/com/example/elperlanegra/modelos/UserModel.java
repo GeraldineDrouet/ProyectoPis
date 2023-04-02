@@ -6,6 +6,7 @@ public class UserModel {
     String telefono;
     String email;
     String password;
+    String fotoPerfil;
 
     public UserModel() {
     }
@@ -16,6 +17,15 @@ public class UserModel {
         this.telefono = telefono;
         this.email = email;
         this.password = password;
+
+    }
+
+    public String getFotoPerfil() {
+        return fotoPerfil;
+    }
+
+    public void setFotoPerfil(String fotoPerfil) {
+        this.fotoPerfil = fotoPerfil;
     }
 
     public String getNombreAp() {

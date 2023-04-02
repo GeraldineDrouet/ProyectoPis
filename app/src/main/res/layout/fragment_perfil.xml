@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,142 +7,148 @@
     tools:context=".ui.perfil.PerfilFragment"
     android:background="#443A3A">
 
-
-    <ImageView
-        android:id="@+id/profile_img"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/perfilfoto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_datos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/alice"
-        android:text="Datos Actuales"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_img" />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profile_img"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/circleImageView" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/datosActuales_rec"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_datos"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"/>
+        <TextView
+            android:id="@+id/tv_datos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/alice"
+            android:text="Datos Actuales"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_img" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/alice"
-        android:text="Actualización de Datos"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datosActuales_rec" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/datosActuales_rec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_datos"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/alice"
+            android:text="Actualización de Datos"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/datosActuales_rec" />
 
 
-    <EditText
-        android:id="@+id/perfil_nombre"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/editiext_bg"
-        android:drawableLeft="@drawable/ic_action_name"
-        android:drawablePadding="10dp"
-        android:elevation="3dp"
-        android:hint="Tu nombre o usuario"
-        android:padding="13dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintWidth_percent=".9" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nota"
+            app:layout_constraintBottom_toTopOf="@+id/perfil_nombre"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            app:layout_constraintVertical_bias="0.0"
+            android:textColor="@color/white"
+            android:fontFamily="@font/alice"
+            android:textAlignment="center"
+            android:textSize="10sp"
+            android:padding="5dp"/>
 
-    <EditText
-        android:id="@+id/perfil_direccion"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/editiext_bg"
-        android:drawableLeft="@drawable/ic_action_address"
-        android:drawablePadding="10dp"
-        android:elevation="3dp"
-        android:hint="Tu dirección"
-        android:padding="13dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/perfil_nombre"
-        app:layout_constraintWidth_percent=".9" />
+        <EditText
+            android:id="@+id/perfil_nombre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/editiext_bg"
+            android:drawableLeft="@drawable/ic_action_name"
+            android:drawablePadding="10dp"
+            android:elevation="3dp"
+            android:hint="Tu nombre o usuario"
+            android:padding="13dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            app:layout_constraintWidth_percent=".9" />
 
-    <EditText
-        android:id="@+id/perfil_telefono"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/editiext_bg"
-        android:drawableLeft="@drawable/ic_action_telf"
-        android:drawablePadding="10dp"
-        android:elevation="3dp"
-        android:hint="Tu teléfono"
-        android:padding="13dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/perfil_direccion"
-        app:layout_constraintWidth_percent=".9" />
+        <EditText
+            android:id="@+id/perfil_direccion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/editiext_bg"
+            android:drawableLeft="@drawable/ic_action_address"
+            android:drawablePadding="10dp"
+            android:elevation="3dp"
+            android:hint="Tu dirección"
+            android:padding="13dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/perfil_nombre"
+            app:layout_constraintWidth_percent=".9" />
 
-    <EditText
-        android:id="@+id/perfil_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/editiext_bg"
-        android:drawableLeft="@drawable/ic_action_maillog"
-        android:drawablePadding="10dp"
-        android:elevation="3dp"
-        android:hint="Tu correo"
-        android:padding="13dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/perfil_telefono"
-        app:layout_constraintWidth_percent=".9" />
+        <EditText
+            android:id="@+id/perfil_telefono"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/editiext_bg"
+            android:drawableLeft="@drawable/ic_action_telf"
+            android:drawablePadding="10dp"
+            android:elevation="3dp"
+            android:hint="Tu teléfono"
+            android:padding="13dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/perfil_direccion"
+            app:layout_constraintWidth_percent=".9" />
 
-    <Button
-        android:id="@+id/perfil_btn"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#321306"
-        android:padding="14dp"
-        android:text="Actualizar Datos"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/perfil_email"
-        app:layout_constraintVertical_bias="0.279" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/perfil_btn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/teal_200"
+            android:padding="14dp"
+            android:text="Actualizar Datos"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/perfil_telefono"
+            app:layout_constraintVertical_bias="1.0" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

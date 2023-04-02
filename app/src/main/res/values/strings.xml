@@ -33,6 +33,7 @@
     <string name="mispedidos">Mis Pedidos</string>
     <string name="mis_pedidos">Mis Pedidos</string>
     <string name="descripciondetalles">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In faucibus pulvinar metus nec sodales. Fusce sed lacus et ex imperdiet pharetra. Duis id elit gravida.</string>
+    <string name="nota">Nota: Llene todos los campos del formulario al actualizar su información, incluso si solo desea modificar uno. Proporcione los mismos datos para evitar dejar espacios en blanco.</string>
 
 
 </resources>

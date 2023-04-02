@@ -29,6 +29,7 @@
             android:textSize="19sp"
             android:textStyle="bold"
             android:text="Productos Populares"
+            android:layout_marginTop="5dp"
             android:textColor="@color/white"/>
 
         <TextView
@@ -48,11 +49,11 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="50dp"
+                android:layout_width="29dp"
                 android:layout_height="20dp"
                 android:src="@drawable/star"
-                android:layout_marginLeft="-5dp"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="5dp" />
 
             <TextView
                 android:id="@+id/pop_rating"
@@ -75,7 +76,7 @@
                 android:textColor="#F1B708"
                 android:textStyle="bold"
                 android:gravity="end"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
 
         </LinearLayout>
     </LinearLayout>
