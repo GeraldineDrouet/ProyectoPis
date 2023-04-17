@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,10 +18,17 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.bumptech.glide.Glide;
 import com.example.elperlanegra.databinding.ActivityMainBinding;
+import com.example.elperlanegra.modelos.UserModel;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private FirebaseAuth authUser;
     private FirebaseUser mUser;
+    FirebaseDatabase db;
     Button btn_logout;
 
 
@@ -42,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         authUser = FirebaseAuth.getInstance();
         mUser = authUser.getCurrentUser();
+        db = FirebaseDatabase.getInstance();
 
         btn_logout = findViewById(R.id.btn_logout);
         //CLICK LISTENER PARA MÉTODO CERRAR SESIÓN
@@ -75,6 +86,29 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView headerName = headerView.findViewById(R.id.nav_header_name);
+        TextView headerMail = headerView.findViewById(R.id.nav_header_mail);
+        ShapeableImageView headerImg = headerView.findViewById(R.id.nav_header_img);
+
+        db.getReference().child("Users").child(FirebaseAuth.getInstance().getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        UserModel userModel = snapshot.getValue(UserModel.class);
+
+                        headerName.setText(userModel.getNombreAp());
+                        headerMail.setText(userModel.getEmail());
+                        Glide.with(MainActivity.this).load(userModel.getFotoPerfil()).into(headerImg);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
     }
 
     @Override
