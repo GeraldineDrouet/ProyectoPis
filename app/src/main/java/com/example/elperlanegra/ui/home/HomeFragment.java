@@ -2,10 +2,13 @@ package com.example.elperlanegra.ui.home;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -21,12 +24,15 @@ import com.example.elperlanegra.R;
 import com.example.elperlanegra.adaptadores.CategoryAdapter;
 import com.example.elperlanegra.adaptadores.DesayunoAdapter;
 import com.example.elperlanegra.adaptadores.PopularAdapter;
+import com.example.elperlanegra.adaptadores.VerTodoAdapter;
 import com.example.elperlanegra.databinding.FragmentHomeBinding;
 import com.example.elperlanegra.modelos.CategoryModel;
 import com.example.elperlanegra.modelos.DesayunoModel;
 import com.example.elperlanegra.modelos.PopularModel;
+import com.example.elperlanegra.modelos.VerTodoModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -38,6 +44,12 @@ public class HomeFragment extends Fragment {
 
     ScrollView scrollView;
     ProgressBar home_pb;
+
+    //////SEARCH BAR VIEW/////////
+    EditText search_box;
+    private List<VerTodoModel> verTodoModelList;
+    private  RecyclerView rv_search;
+    private VerTodoAdapter verTodoAdapter;
 
     //RECYCLERVIEW
     RecyclerView popularRec, categoryRec, desayunoRec;
@@ -143,7 +155,60 @@ public class HomeFragment extends Fragment {
                         }
                     }
                 });
+
+        //////SEARCH BAR VIEW/////////
+        rv_search = root.findViewById(R.id.search_bar_rv);
+        search_box = root.findViewById(R.id.search_box);
+        verTodoModelList = new ArrayList<>();
+        verTodoAdapter = new VerTodoAdapter(getContext(), verTodoModelList);
+        rv_search.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv_search.setAdapter(verTodoAdapter);
+        rv_search.setHasFixedSize(true);
+        search_box.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if (s.toString().isEmpty()){
+                    verTodoModelList.clear();
+                    verTodoAdapter.notifyDataSetChanged();
+                } else {
+                    searchProduct(s.toString());
+                }
+            }
+        });
+
+
         return root;
+    }
+
+    private void searchProduct(String type) {
+        if (!type.isEmpty()){
+            db.collection("AllProducts").whereEqualTo("tipo", type).get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful() && task.getResult() != null){
+                                verTodoModelList.clear();
+                                verTodoAdapter.notifyDataSetChanged();
+                                for (DocumentSnapshot doc : task.getResult().getDocuments()){
+                                    VerTodoModel verTodoModel = doc.toObject(VerTodoModel.class);
+                                    verTodoModelList.add(verTodoModel);
+                                    verTodoAdapter.notifyDataSetChanged();
+                                }
+                            }
+                        }
+                    });
+        }
     }
 
 }
