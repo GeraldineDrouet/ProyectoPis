@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,17 +89,17 @@ public class PerfilFragment extends Fragment {
 
 
         datosActuales_rec = root.findViewById(R.id.datosActuales_rec);
-        datosActuales_rec.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false));
+        datosActuales_rec.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
 
         userModelList = new ArrayList<>();
-        datosActualesAdapter = new DatosActualesAdapter(getActivity(),userModelList);
+        datosActualesAdapter = new DatosActualesAdapter(getActivity(), userModelList);
         datosActuales_rec.setAdapter(datosActualesAdapter);
 
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                 userModelList.clear();
-                for(DataSnapshot snapshot :
+                for (DataSnapshot snapshot :
                         datasnapshot.getChildren()) {
                     UserModel user = datasnapshot.getValue(UserModel.class);
                     userModelList.add(user);
@@ -108,7 +110,9 @@ public class PerfilFragment extends Fragment {
 
 
                     String uid = datasnapshot.getKey();
-                } datosActualesAdapter.notifyDataSetChanged(); ;
+                }
+                datosActualesAdapter.notifyDataSetChanged();
+                ;
 
             }
 
@@ -127,20 +131,21 @@ public class PerfilFragment extends Fragment {
 
         actualizar = root.findViewById(R.id.perfil_btn);
 
+
         db.getReference().child("Users").child(FirebaseAuth.getInstance().getUid())
-                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                UserModel userModel = snapshot.getValue(UserModel.class);
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        UserModel userModel = snapshot.getValue(UserModel.class);
 
-                                Glide.with(getContext()).load(userModel.getFotoPerfil()).into(profileIMG);
-                            }
+                        Glide.with(getContext()).load(userModel.getFotoPerfil()).into(profileIMG);
+                    }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                            }
-                        });
+                    }
+                });
 
         profileIMG.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,35 +173,43 @@ public class PerfilFragment extends Fragment {
         String newDireccion = direccion.getText().toString();
         String newTelef = telef.getText().toString();
 
-        usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid());
-        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String currentNombreAp = snapshot.child("nombreAp").getValue(String.class);
-                String currentDireccion = snapshot.child("direccion").getValue(String.class);
-                String currentTelef = snapshot.child("telefono").getValue(String.class);
+        if (newNombreAp.equals("") && newDireccion.equals("") && newTelef.equals("")) {
+            Toast.makeText(getContext(), "Ingrese al menos un campo para actualizar", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-                if (!newNombreAp.equals(currentNombreAp)) {
-                    usersRef.child("nombreAp").setValue(newNombreAp);
-                }
-                if (!newDireccion.equals(currentDireccion)) {
-                    usersRef.child("direccion").setValue(newDireccion);
-                }
-                if (!newTelef.equals(currentTelef)) {
-                    usersRef.child("telefono").setValue(newTelef);
+
+            usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid());
+            usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String currentNombreAp = snapshot.child("nombreAp").getValue(String.class);
+                    String currentDireccion = snapshot.child("direccion").getValue(String.class);
+                    String currentTelef = snapshot.child("telefono").getValue(String.class);
+
+                        if (!newNombreAp.equals("") && !newNombreAp.equals(currentNombreAp)) {
+                            usersRef.child("nombreAp").setValue(newNombreAp);
+                        }
+                        if (!newDireccion.equals("") && !newDireccion.equals(currentDireccion)) {
+                            usersRef.child("direccion").setValue(newDireccion);
+                        }
+                        if (!newTelef.equals("") && !newTelef.equals(currentTelef)) {
+                            usersRef.child("telefono").setValue(newTelef);
+                        }
+
+                        Toast.makeText(getContext(), "Dato/s actualizados correctamente", Toast.LENGTH_SHORT).show();
+                        nombreAp.setText("");
+                        direccion.setText("");
+                        telef.setText("");
+
+
                 }
 
-                Toast.makeText(getContext(), "Datos actualizados correctamente", Toast.LENGTH_SHORT).show();
-                nombreAp.setText("");
-                direccion.setText("");
-                telef.setText("");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Manejar el error
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Manejar el error
+                }
+            });
 
         /*usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid());
 
@@ -211,6 +224,7 @@ public class PerfilFragment extends Fragment {
         nombreAp.setText("");
         direccion.setText("");
         telef.setText("");*/
+
 
     }
 
