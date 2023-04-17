@@ -79,11 +79,13 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
             }
         });
 
-        /////Mostrar precio total en el fragmento Carrito/////
+        /*////Mostrar precio total en el fragmento Carrito/////
         precioT = precioT + carritoModelList.get(position).getPrecioTotal();
         Intent intentPrecio = new Intent("MiPrecioTotal");
         intentPrecio.putExtra("montoTotal", precioT);
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intentPrecio);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intentPrecio);*/
+
+
 
     }
 

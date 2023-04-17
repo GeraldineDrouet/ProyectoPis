@@ -90,8 +90,8 @@ public class CarritoFragment extends Fragment {
 
         overTotalAmount = root.findViewById(R.id.totalamount);
 
-        LocalBroadcastManager.getInstance(getActivity())
-                .registerReceiver(mMessageReceiver, new IntentFilter("MiPrecioTotal"));
+        /*LocalBroadcastManager.getInstance(getActivity())
+                .registerReceiver(mMessageReceiver, new IntentFilter("MiPrecioTotal"));*/
 
         carritoModelList = new ArrayList<>();
         carritoAdapter = new CarritoAdapter(getActivity(), carritoModelList);
@@ -115,6 +115,8 @@ public class CarritoFragment extends Fragment {
                                 progressBar.setVisibility(View.GONE);
                                 rv_carrito.setVisibility(View.VISIBLE);
                             }
+
+                            calcularMontoTotal(carritoModelList);
                         }
                     }
                 });
@@ -167,7 +169,19 @@ public class CarritoFragment extends Fragment {
         return root;
     }
 
-    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+    private void calcularMontoTotal(List<CarritoModel> carritoModelList) {
+
+        double montoTotal = 0.0;
+        for(CarritoModel carritoModel : carritoModelList){
+            montoTotal += carritoModel.getPrecioTotal();
+        }
+
+        //overTotalAmount.setText("Monto Total: " + montoTotal);
+        String formattedTotalAmount = String.format("%.2f", montoTotal);
+        overTotalAmount.setText("Monto Total: " + formattedTotalAmount);
+    }
+
+    /*public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             double totalBill = intent.getDoubleExtra("montoTotal", 0.00);
@@ -176,7 +190,7 @@ public class CarritoFragment extends Fragment {
             nf.setMaximumFractionDigits(2);
             overTotalAmount.setText("TOTAL A PAGAR: $" + nf.format(totalBill));
         }
-    };
+    };*/
 
 
 }
