@@ -31,6 +31,8 @@ import com.example.elperlanegra.modelos.CarritoModel;
 import com.example.elperlanegra.modelos.CategoryModel;
 import com.example.elperlanegra.modelos.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,6 +41,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -64,6 +67,7 @@ public class CarritoFragment extends Fragment {
     Button payNow;
     UserModel modelUser;
     ProgressBar progressBar;
+
 
     @SuppressLint("MissingInflatedId")
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -94,7 +98,9 @@ public class CarritoFragment extends Fragment {
                 .registerReceiver(mMessageReceiver, new IntentFilter("MiPrecioTotal"));*/
 
         carritoModelList = new ArrayList<>();
-        carritoAdapter = new CarritoAdapter(getActivity(), carritoModelList);
+        //carritoAdapter = new CarritoAdapter(getActivity(), carritoModelList);
+        CarritoAdapter carritoAdapter = new CarritoAdapter(getActivity(), carritoModelList, this);
+
         rv_carrito.setAdapter(carritoAdapter);
 
 
@@ -169,16 +175,17 @@ public class CarritoFragment extends Fragment {
         return root;
     }
 
-    private void calcularMontoTotal(List<CarritoModel> carritoModelList) {
+
+    public void calcularMontoTotal(List<CarritoModel> carritoModelList) {
 
         double montoTotal = 0.0;
         for(CarritoModel carritoModel : carritoModelList){
             montoTotal += carritoModel.getPrecioTotal();
         }
-
         //overTotalAmount.setText("Monto Total: " + montoTotal);
         String formattedTotalAmount = String.format("%.2f", montoTotal);
         overTotalAmount.setText("Monto Total: " + formattedTotalAmount);
+
     }
 
     /*public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.elperlanegra.R;
 import com.example.elperlanegra.modelos.CarritoModel;
+import com.example.elperlanegra.ui.carrito.CarritoFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,12 +32,14 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
     FirebaseFirestore firestore;
     FirebaseAuth auth;
     double precioT = 0;
+    private CarritoFragment carritoFragment;
 
-    public CarritoAdapter(Context context, List<CarritoModel> carritoModelList) {
+    public CarritoAdapter(Context context, List<CarritoModel> carritoModelList, CarritoFragment carritoFragment) {
         this.context = context;
         this.carritoModelList = carritoModelList;
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
+        this.carritoFragment = carritoFragment;
     }
 
     @NonNull
@@ -69,6 +72,7 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
                                     carritoModelList.remove(carritoModelList.get(position));
+                                    carritoFragment.calcularMontoTotal(carritoModelList);
                                     notifyDataSetChanged();
                                     Toast.makeText(context, "¡¡ÍTEM ELIMINADO!!", Toast.LENGTH_SHORT).show();
                                 } else {
