@@ -4,19 +4,16 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +22,6 @@ import com.example.elperlanegra.adaptadores.CategoryAdapter;
 import com.example.elperlanegra.adaptadores.DesayunoAdapter;
 import com.example.elperlanegra.adaptadores.PopularAdapter;
 import com.example.elperlanegra.adaptadores.VerTodoAdapter;
-import com.example.elperlanegra.databinding.FragmentHomeBinding;
 import com.example.elperlanegra.modelos.CategoryModel;
 import com.example.elperlanegra.modelos.DesayunoModel;
 import com.example.elperlanegra.modelos.PopularModel;
@@ -183,6 +179,8 @@ public class HomeFragment extends Fragment {
                     verTodoAdapter.notifyDataSetChanged();
                 } else {
                     searchProduct(s.toString());
+                    //String searchText = s.toString().toLowerCase();
+                    //searchProduct(searchText);
                 }
             }
         });
@@ -191,9 +189,9 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    private void searchProduct(String type) {
-        if (!type.isEmpty()){
-            db.collection("AllProducts").whereEqualTo("tipo", type).get()
+    /*private void searchProduct(String name) {
+        if (!name.isEmpty()){
+            db.collection("AllProducts").whereGreaterThanOrEqualTo("nombre", name).get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -209,6 +207,35 @@ public class HomeFragment extends Fragment {
                         }
                     });
         }
+    }*/
+
+    //
+    private void searchProduct(String name) {
+        if (!name.isEmpty()){
+            String searchText = name.toLowerCase(); // convertirtodo a minúsculas
+            db.collection("AllProducts").get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful() && task.getResult() != null){
+                                verTodoModelList.clear();
+                                verTodoAdapter.notifyDataSetChanged();
+                                for (DocumentSnapshot doc : task.getResult().getDocuments()){
+                                    String nombre = doc.getString("nombre"); // obtener el campo "nombre" del documento
+                                    if (nombre != null && nombre.toLowerCase().contains(searchText)) { // buscar coincidencias
+                                        VerTodoModel verTodoModel = doc.toObject(VerTodoModel.class);
+                                        verTodoModelList.add(verTodoModel);
+                                        verTodoAdapter.notifyDataSetChanged();
+                                    }
+                                }
+                            }
+                        }
+                    });
+        }
     }
+
+    //
+
+
 
 }
