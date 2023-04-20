@@ -8,7 +8,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/ic_epn_round"
+        android:icon="@mipmap/ic_epnicon23"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.ElPerlaNegra"
@@ -45,7 +45,10 @@
         </activity>
         <activity
             android:name=".RegistroActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize">
+
+        </activity>
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
