@@ -60,10 +60,10 @@
         app:layout_constraintTop_toBottomOf="@+id/nombre_detalle" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/rating_bar"
         android:layout_width="45dp"
         android:layout_height="25dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/star"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nombre_detalle" />
@@ -73,11 +73,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alice"
-        android:text="5.0"
+        android:text="4.6"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintEnd_toStartOf="@+id/rating_bar"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/precio_detalles"
         app:layout_constraintTop_toBottomOf="@+id/nombre_detalle" />
