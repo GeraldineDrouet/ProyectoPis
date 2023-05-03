@@ -55,6 +55,9 @@ dependencies {
     //implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 
 
+    //MAPA
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
 
     //IMAGEVIEW REDONDEADA
     implementation 'com.makeramen:roundedimageview:2.3.0'
