@@ -5,15 +5,24 @@
         android:id="@+id/action_acerca"
         android:orderInCategory="100"
         android:icon="@drawable/ic_action_aboutus"
-        android:title="Acerca de Nosotros" />
+        android:iconTint="@color/white"
+        android:title="Acerca de Nosotros"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/action_contactenos"
         android:icon="@drawable/ic_action_contac"
         android:iconTint="@color/white"
-        android:orderInCategory="100"
+        android:orderInCategory="105"
         android:title="Contáctenos"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_share"
+        android:title="Compartir"
+        android:orderInCategory="110"
+        android:icon="@drawable/ic_action_share"
+        app:showAsAction="never"/>
 
 
 </menu>

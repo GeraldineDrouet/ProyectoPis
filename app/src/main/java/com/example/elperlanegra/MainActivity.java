@@ -117,6 +117,15 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /*private void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.inflate(R.menu.main);
+
+        // Para mostrar el menú debajo de la Toolbar
+        popupMenu.show();
+    }*/
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -131,12 +140,22 @@ public class MainActivity extends AppCompatActivity {
                 Intent intentContactenos = new Intent(getApplicationContext(), ContactenosActivity.class);
                 startActivity(intentContactenos);
                 return true;
+            case R.id.action_share:
+                shareAppLink();
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-
+///////////////////////////////https://play.google.com/store/apps/details?id=
+    private void shareAppLink() {
+        String appLink = "https://play.google.com/store/apps/details?id=net.comeandsee.thechosen&hl=es_EC&gl=US"; //+ getPackageName();
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, appLink);
+        startActivity(Intent.createChooser(intent, "Compartir en"));
+    }
+////////////////////////////////////////////
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
