@@ -80,14 +80,16 @@ public class DetallesActivity extends AppCompatActivity {
         carritoImg = findViewById(R.id.carritoImag);
 
 
+
         if (verTodoModel != null){
             Glide.with(getApplicationContext()).load(verTodoModel.getImg_url()).into(detailedImg);
             nombre.setText(verTodoModel.getNombre());
             rating.setText(verTodoModel.getRating());
             descripcion.setText(verTodoModel.getDescripcion());
-            precio.setText("Precio: $"+ (double) verTodoModel.getPrecio() + "");
+            precio.setText("$"+ (double) verTodoModel.getPrecio() + "");
 
             totalPrice = verTodoModel.getPrecio() * cantTotal;
+
         }
 
         addTocart = findViewById(R.id.addtocart_bt);

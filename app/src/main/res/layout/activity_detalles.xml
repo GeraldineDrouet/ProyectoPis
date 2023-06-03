@@ -45,18 +45,33 @@
         app:layout_constraintTop_toBottomOf="@+id/detallesImg" />
 
     <TextView
+        android:id="@+id/precio1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/alice"
+        android:text="Precio"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_marginTop="4dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nombre_detalle" />
+
+    <TextView
         android:id="@+id/precio_detalles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/alice"
-        android:text="Precio: $25.99"
+        android:text="$25.99"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.031"
+
+        app:layout_constraintStart_toEndOf="@+id/precio1"
         app:layout_constraintTop_toBottomOf="@+id/nombre_detalle" />
 
     <ImageView

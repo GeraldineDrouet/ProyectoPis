@@ -44,6 +44,9 @@ public class VerTodoAdapter extends RecyclerView.Adapter<VerTodoAdapter.ViewHold
         holder.rating.setText(verTodoModelList.get(position).getRating());
         holder.precio.setText(verTodoModelList.get(position).getPrecio()+"");
 
+        if (verTodoModelList.get(position).getTipo().equals("fresco")){
+            holder.precio.setText(verTodoModelList.get(position).getPrecio() + "/Lb");
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

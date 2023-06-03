@@ -36,8 +36,11 @@
                 android:textStyle="bold"
                 android:fontFamily="@font/alice"
                 android:ellipsize="end"
+                android:gravity="center_vertical"
                 android:maxLines="1"
-                android:singleLine="true"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeMaxTextSize="24sp"
                 android:textSize="24sp"/>
 
             <TextView
