@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MisPedidosFragment extends Fragment {
 
     RecyclerView rv_order;
+
     ConstraintLayout empty;
 
     public MisPedidosFragment() {
@@ -27,9 +28,14 @@ public class MisPedidosFragment extends Fragment {
 
         rv_order = root.findViewById(R.id.rv_order);
         rv_order.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
         rv_order.setVisibility(View.GONE);
 
         empty = root.findViewById(R.id.constraint3);
+
+
+        // Aquí llamarás al método que obtiene los pedidos desde Firebase y los muestra en el RecyclerView
 
         return root;
     }

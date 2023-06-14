@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         ShapeableImageView headerImg = headerView.findViewById(R.id.nav_header_img);
 
         db.getReference().child("Users").child(FirebaseAuth.getInstance().getUid())
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+                .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         UserModel userModel = snapshot.getValue(UserModel.class);
@@ -107,6 +107,23 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
+        /*db.getReference().child("Users").child(FirebaseAuth.getInstance().getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        UserModel userModel = snapshot.getValue(UserModel.class);
+
+                        headerName.setText(userModel.getNombreAp());
+                        headerMail.setText(userModel.getEmail());
+                        Glide.with(MainActivity.this).load(userModel.getFotoPerfil()).into(headerImg);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });*/
 
     }
 

@@ -1,5 +1,7 @@
 package com.example.elperlanegra.ui.perfil;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,9 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -211,6 +211,36 @@ public class PerfilFragment extends Fragment {
 
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    if (requestCode == 33 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        Uri imageUri = data.getData();
+
+        // Aquí puedes actualizar la foto en Firebase Storage y obtener la URL de la imagen actualizada
+
+        final StorageReference reference = storage.getReference().child("fotoPerfil")
+                    .child(FirebaseAuth.getInstance().getUid());
+        reference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(getContext(), "FOTO DE PERFIL ACTUALIZADA", Toast.LENGTH_SHORT).show();
+
+                reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        db.getReference().child("Users").child(FirebaseAuth.getInstance().getUid())
+                                .child("fotoPerfil").setValue(uri.toString());
+
+                        Toast.makeText(getContext(), "FOTO DE PERFIL SUBIDA", Toast.LENGTH_SHORT).show();
+
+        Glide.with(getContext()).load(imageUri).into(profileIMG);
+    }
+});
+
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -236,6 +266,10 @@ public class PerfilFragment extends Fragment {
                         }
                     });
                 }
+            });
+        }
+    }*/
+                 }
             });
         }
     }
