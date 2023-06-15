@@ -153,8 +153,8 @@ public class DetallesActivity extends AppCompatActivity {
         cartMap.put("precioTotal", totalPrice);
         cartMap.put("img", verTodoModel.getImg_url());
 
-        firestore.collection("CurrentUser").document(auth.getCurrentUser().getUid())
-                .collection("Carrito").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+        firestore.collection("Carrito").document(auth.getCurrentUser().getUid())
+                .collection("Cart").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
                         Toast.makeText(DetallesActivity.this, "AGREGADO AL CARRITO", Toast.LENGTH_SHORT).show();

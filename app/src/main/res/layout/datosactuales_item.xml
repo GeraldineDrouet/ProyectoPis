@@ -85,6 +85,10 @@
                 android:text="correo electronico"
                 android:textColor="@color/white"
                 android:textSize="15sp"
+                android:maxLines="1"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="9sp"
+                android:autoSizeMaxTextSize="15sp"
                 android:fontFamily="@font/alice"/>
         </LinearLayout>
 

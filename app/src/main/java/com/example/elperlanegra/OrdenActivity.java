@@ -1,13 +1,13 @@
 package com.example.elperlanegra;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.elperlanegra.modelos.CarritoModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,6 +45,7 @@ public class OrdenActivity extends AppCompatActivity {
         List<CarritoModel> list = (ArrayList<CarritoModel>) getIntent().getSerializableExtra("itemList");
 
         if (list != null &&list.size() > 0){
+
             for (CarritoModel model : list) {
                 final HashMap<String, Object> cartMap = new HashMap<>();
 
@@ -56,8 +57,8 @@ public class OrdenActivity extends AppCompatActivity {
                 cartMap.put("precioTotal", model.getPrecioTotal());
                 cartMap.put("img", model.getImg());
 
-                firestore.collection("CurrentUser").document(auth.getCurrentUser().getUid())
-                        .collection("Pedidos").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                firestore.collection("Pedidos").document(auth.getCurrentUser().getUid())
+                        .collection("Orden").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentReference> task) {
                                 Toast.makeText(OrdenActivity.this, "PEDIDO REALIZADO CON ÉXITO", Toast.LENGTH_SHORT).show();
