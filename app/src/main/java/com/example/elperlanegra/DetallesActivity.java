@@ -132,7 +132,7 @@ public class DetallesActivity extends AppCompatActivity {
         String fecha;
         Calendar calendarFecha = Calendar.getInstance();
 
-        SimpleDateFormat fechaActual = new SimpleDateFormat("dd MM, yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat fechaActual = new SimpleDateFormat("dd MM, yyyy");
         fecha = fechaActual.format(calendarFecha.getTime());
 
         /*SimpleDateFormat horaActual = new SimpleDateFormat("hh:mm:ss a");

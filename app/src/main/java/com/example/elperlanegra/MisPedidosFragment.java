@@ -1,7 +1,5 @@
 package com.example.elperlanegra;
 
-import static android.content.ContentValues.TAG;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,27 +7,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.elperlanegra.adaptadores.PedidoAdapter;
+import com.example.elperlanegra.modelos.PedidoModel;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MisPedidosFragment extends Fragment {
 
+    private ValueEventListener valueEventListener;
     RecyclerView rv_order;
+    PedidoAdapter pedidoAdapter;
+    List<PedidoModel> pedidoModelList;
+
+    //////////FIREBASE//////
+    //DatabaseReference databaseReference;
+    FirebaseFirestore firestore;
 
     ///////////VARIOS//////////
     ConstraintLayout empty;
+    ConstraintLayout nonEmpty;
     ProgressBar progressBar;
 
     public MisPedidosFragment() {
@@ -47,37 +55,58 @@ public class MisPedidosFragment extends Fragment {
         rv_order.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv_order.setVisibility(View.GONE);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DocumentReference currentUserRef = db.collection("CurrentUser").document(userId);
-        DocumentReference pedidosRef = currentUserRef.collection("CurrentUser").document("Pedidos");
-
-        pedidosRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.e(TAG, "Error al obtener los pedidos: " + e.getMessage());
-                    return;
-                }
-
-                if (documentSnapshot != null && documentSnapshot.exists()) {
-                    // Los datos de los pedidos existen, puedes acceder a ellos utilizando documentSnapshot.getData()
-                    Map<String, Object> pedidosData = documentSnapshot.getData();
-
-                    // Aquí puedes realizar las operaciones necesarias para mostrar los datos en tu fragmento
-                    // Por ejemplo, puedes actualizar una lista o un RecyclerView con los datos de los pedidos
-                }
-            }
-        });
-
-
+        pedidoModelList = new ArrayList<>();
+        pedidoAdapter = new PedidoAdapter(pedidoModelList);
+        rv_order.setAdapter(pedidoAdapter);
 
         empty = root.findViewById(R.id.constraint3);
+        nonEmpty = root.findViewById(R.id.constraint4);
+
+        //databaseReference = FirebaseDatabase.getInstance().getReference().child("Pedidos");
+        firestore = FirebaseFirestore.getInstance();
+
+        firestore.collection("Pedidos")
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .collection("Orden")
+                .addSnapshotListener((querySnapshot, e) -> {
+                    if (e != null) {
+                        // Ha ocurrido un error al obtener los datos de Firestore
+                        Log.e("MisPedidosFragment", "Error al obtener los pedidos", e);
+                        return;
+                    }
+
+                    pedidoModelList.clear();
+                    double montoTotal = 0.0;
+                    if (querySnapshot != null){
+                        Map<String, PedidoModel> pedidoMap = new HashMap<>();
+                        for (DocumentSnapshot document : querySnapshot.getDocuments()){
+                            PedidoModel pedido = document.toObject(PedidoModel.class);
+                            pedido.setEstado("PAGADO");
+                            String idPedido = pedido.getIdPedido();
+                            pedidoMap.put(idPedido, pedido);
+
+                        }
+
+                        pedidoModelList.addAll(pedidoMap.values());
+                        pedidoAdapter.notifyDataSetChanged();
+                    }
 
 
-        // Aquí llamarás al método que obtiene los pedidos desde Firebase y los muestra en el RecyclerView
+                    //pedidoAdapter.notifyDataSetChanged();
 
+                    if (pedidoModelList.isEmpty()) {
+                        empty.setVisibility(View.VISIBLE);
+                        nonEmpty.setVisibility(View.GONE);
+                        rv_order.setVisibility(View.GONE);
+                    } else {
+                        empty.setVisibility(View.GONE);
+                        nonEmpty.setVisibility(View.VISIBLE);
+                        rv_order.setVisibility(View.VISIBLE);
+                    }
+
+                });
 
         return root;
     }
+
 }

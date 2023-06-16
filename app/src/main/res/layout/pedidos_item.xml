@@ -17,13 +17,14 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:text="PEDIDO N° "
+                android:text="ID DE PEDIDO"
                 android:textColor="@color/white"
                 android:fontFamily="@font/alice"
                 android:textSize="15sp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:textStyle="bold"/>
 
             <TextView
@@ -37,15 +38,12 @@
 
         </LinearLayout>
 
-            <TextView
-                android:id="@+id/pedido_fecha"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DD/MM/AAAA"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:fontFamily="@font/alice"
-                android:layout_marginLeft="5dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -53,20 +51,20 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:text="ESTADO: "
+                android:text="FECHA"
                 android:textColor="@color/white"
                 android:fontFamily="@font/alice"
                 android:textSize="15sp"
-                android:textStyle="bold"
-                android:layout_marginLeft="5dp"/>
-
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textStyle="bold"/>
             <TextView
-                android:id="@+id/pedido_estado"
+                android:id="@+id/pedido_fecha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PAGADO"
+                android:text="DD/MM/AAAA"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:fontFamily="@font/alice"/>
@@ -75,13 +73,81 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="MONTO TOTAL"
+                android:textColor="@color/white"
+                android:fontFamily="@font/alice"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+
+            <TextView
+                android:id="@+id/pedido_monto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$ 0.00"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:fontFamily="@font/alice"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="ESTADO"
+                android:textColor="@color/white"
+                android:fontFamily="@font/alice"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+
+            <TextView
+                android:id="@+id/pedido_estado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PAGADO"
+                android:textColor="#5CFA2F"
+                android:textSize="15sp"
+                android:fontFamily="@font/alice"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Detalles"
-            android:textColor="@color/white"
+            android:text="DETALLES"
+            android:textColor="#FFEB3B"
             android:textStyle="bold"
             android:textSize="15sp"
             android:fontFamily="@font/alice"
@@ -92,104 +158,6 @@
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/purple_500">
-
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="Producto"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:fontFamily="@font/alice"
-                android:gravity="center"/>
-            <View
-                android:layout_height="match_parent"
-                android:layout_width="1dp"
-                android:background="@android:color/darker_gray"/>
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="P. Unit."
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:fontFamily="@font/alice"
-                android:gravity="center"/>
-            <View
-                android:layout_height="match_parent"
-                android:layout_width="1dp"
-                android:background="@android:color/darker_gray"/>
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:text="Cant"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:fontFamily="@font/alice"
-                android:gravity="center"/>
-            <View
-                android:layout_height="match_parent"
-                android:layout_width="1dp"
-                android:background="@android:color/darker_gray"/>
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="P. Total"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:fontFamily="@font/alice"
-                android:gravity="center"/>
-
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_pedidos"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:divider="@android:color/darker_gray"
-            android:dividerHeight="1dp"
-            android:background="@color/purple_500"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/purple_500">
-
-            <TextView
-                android:layout_width="345dp"
-                android:layout_height="wrap_content"
-                android:text="MONTO TOTAL"
-                android:textColor="@color/white"
-                android:fontFamily="@font/alice"
-                android:textStyle="bold"
-                android:layout_marginLeft="5dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="$ 0.00"
-                android:textColor="@color/white"
-                android:fontFamily="@font/alice"
-                android:textStyle="bold"/>
-        </LinearLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

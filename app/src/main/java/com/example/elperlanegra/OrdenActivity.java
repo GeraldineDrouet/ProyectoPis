@@ -19,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class OrdenActivity extends AppCompatActivity {
 
@@ -45,10 +46,12 @@ public class OrdenActivity extends AppCompatActivity {
         List<CarritoModel> list = (ArrayList<CarritoModel>) getIntent().getSerializableExtra("itemList");
 
         if (list != null &&list.size() > 0){
-
+            String idPedido = (String) generateRandomId(6);
             for (CarritoModel model : list) {
                 final HashMap<String, Object> cartMap = new HashMap<>();
 
+
+                cartMap.put("idPedido", idPedido);
                 cartMap.put("nombre", model.getNombre());
                 cartMap.put("precio", model.getPrecio());
                 cartMap.put("fecha", model.getFecha());
@@ -61,11 +64,43 @@ public class OrdenActivity extends AppCompatActivity {
                         .collection("Orden").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentReference> task) {
-                                Toast.makeText(OrdenActivity.this, "PEDIDO REALIZADO CON ÉXITO", Toast.LENGTH_SHORT).show();
+                                if (task.isSuccessful()) {
+                                    String pedidoId = task.getResult().getId();
+                                    firestore.collection("Pedidos")
+                                            .document(auth.getCurrentUser().getUid())
+                                            .collection("Orden")
+                                            .document(pedidoId)
+                                            .update("idPedido", idPedido)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(OrdenActivity.this, "PEDIDO REALIZADO CON ÉXITO", Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        Toast.makeText(OrdenActivity.this, "Error al asignar ID al pedido", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                } else {
+                                    Toast.makeText(OrdenActivity.this, "Error al guardar el pedido", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
             }
         }
+    }
+
+    private Object generateRandomId(int length) {
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        String characters = "0123456789";
+
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            sb.append(characters.charAt(index));
+        }
+
+        return sb.toString();
     }
 
     @Override

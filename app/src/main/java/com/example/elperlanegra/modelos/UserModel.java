@@ -8,6 +8,7 @@ public class UserModel {
     String password;
     String fotoPerfil;
 
+
     public UserModel() {
     }
 
@@ -67,4 +68,5 @@ public class UserModel {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
