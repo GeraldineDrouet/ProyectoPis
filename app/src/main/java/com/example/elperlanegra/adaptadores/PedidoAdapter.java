@@ -33,6 +33,7 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.PedidoView
         holder.id.setText(pedidoModelList.get(position).getIdPedido());
         holder.estado.setText(pedidoModelList.get(position).getEstado());
         holder.fecha.setText(pedidoModelList.get(position).getFecha());
+        holder.hora.setText(pedidoModelList.get(position).getHora());
         holder.monto.setText(pedidoModelList.get(position).getMontoTotal());
     }
 
@@ -43,12 +44,13 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.PedidoView
 
     public class PedidoViewHolder extends RecyclerView.ViewHolder {
 
-        TextView id, fecha, estado, monto;
+        TextView id, fecha, estado, hora, monto;
         public PedidoViewHolder(@NonNull View itemView) {
             super(itemView);
             id = itemView.findViewById(R.id.pedido_id);
             fecha = itemView.findViewById(R.id.pedido_fecha);
             estado = itemView.findViewById(R.id.pedido_estado);
+            hora = itemView.findViewById(R.id.pedido_hora);
             monto = itemView.findViewById(R.id.pedido_monto);
         }
     }

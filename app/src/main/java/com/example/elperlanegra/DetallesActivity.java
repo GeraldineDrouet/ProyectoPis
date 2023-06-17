@@ -132,13 +132,13 @@ public class DetallesActivity extends AppCompatActivity {
         String fecha;
         Calendar calendarFecha = Calendar.getInstance();
 
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat fechaActual = new SimpleDateFormat("dd MM, yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat fechaActual = new SimpleDateFormat("dd/MM/yyyy");
         fecha = fechaActual.format(calendarFecha.getTime());
 
         /*SimpleDateFormat horaActual = new SimpleDateFormat("hh:mm:ss a");
         hora = horaActual.format(calendarFecha.getTime());*/ ///no sale la hora de Ecuador
         ///Si sale la hora de Ecuador
-        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss a");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
         TimeZone timeZone = TimeZone.getTimeZone("America/Guayaquil");
         dateFormat.setTimeZone(timeZone);
         String hora = dateFormat.format(new Date());

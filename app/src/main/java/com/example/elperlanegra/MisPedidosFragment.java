@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.elperlanegra.adaptadores.PedidoAdapter;
 import com.example.elperlanegra.modelos.PedidoModel;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -26,13 +25,11 @@ import java.util.Map;
 
 public class MisPedidosFragment extends Fragment {
 
-    private ValueEventListener valueEventListener;
     RecyclerView rv_order;
     PedidoAdapter pedidoAdapter;
     List<PedidoModel> pedidoModelList;
 
     //////////FIREBASE//////
-    //DatabaseReference databaseReference;
     FirebaseFirestore firestore;
 
     ///////////VARIOS//////////
@@ -49,6 +46,9 @@ public class MisPedidosFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_mis_pedidos, container, false);
+
+        ///////PROGRESS BAR
+        progressBar = root.findViewById(R.id.pb_pedidos);
 
         ///RECYCLERVIEW////////
         rv_order = root.findViewById(R.id.rv_order);
@@ -79,6 +79,7 @@ public class MisPedidosFragment extends Fragment {
                     double montoTotal = 0.0;
                     if (querySnapshot != null){
                         Map<String, PedidoModel> pedidoMap = new HashMap<>();
+
                         for (DocumentSnapshot document : querySnapshot.getDocuments()){
                             PedidoModel pedido = document.toObject(PedidoModel.class);
                             pedido.setEstado("PAGADO");
@@ -104,6 +105,7 @@ public class MisPedidosFragment extends Fragment {
                         rv_order.setVisibility(View.VISIBLE);
                     }
 
+                    progressBar.setVisibility(View.GONE);
                 });
 
         return root;

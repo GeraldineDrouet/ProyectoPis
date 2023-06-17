@@ -4,6 +4,7 @@ public class PedidoModel {
     String idPedido;
     String fecha;
     String estado;
+    String hora;
     String montoTotal;
     String totalProducto;
     String precio;
@@ -13,11 +14,12 @@ public class PedidoModel {
     public PedidoModel() {
     }
 
-    public PedidoModel(String idPedido, String fecha, String estado, String montoTotal /*, List<ProductoModel> productoModelList*/) {
+    public PedidoModel(String idPedido, String fecha, String estado, String hora, String montoTotal /*, List<ProductoModel> productoModelList*/) {
         this.idPedido = idPedido;
         this.fecha = fecha;
         this.estado = estado;
         this.montoTotal = montoTotal;
+        this.hora = hora;
         //this.productoModelList = productoModelList;
     }
 
@@ -35,6 +37,14 @@ public class PedidoModel {
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 
     public String getEstado() {
