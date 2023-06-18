@@ -1,26 +1,27 @@
 package com.example.elperlanegra.modelos;
 
+import java.util.List;
+
 public class PedidoModel {
     String idPedido;
     String fecha;
     String estado;
     String hora;
     String montoTotal;
-    String totalProducto;
-    String precio;
-    String cantidad;
-    //List<ProductoModel> productoModelList;
+    List<CarritoModel> productoModelList;
+    double precioTotal;
+
 
     public PedidoModel() {
     }
 
-    public PedidoModel(String idPedido, String fecha, String estado, String hora, String montoTotal /*, List<ProductoModel> productoModelList*/) {
+    public PedidoModel(String idPedido, String fecha, String estado, String hora, String montoTotal, List<CarritoModel> productoModelList) {
         this.idPedido = idPedido;
         this.fecha = fecha;
         this.estado = estado;
         this.montoTotal = montoTotal;
         this.hora = hora;
-        //this.productoModelList = productoModelList;
+        this.productoModelList = productoModelList;
     }
 
     public String getIdPedido() {
@@ -63,39 +64,22 @@ public class PedidoModel {
         this.montoTotal = montoTotal;
     }
 
-/*
-    public List<ProductoModel> getProductoModelList() {
-        return productoModelList;
-    }
-
-    public void setProductoModelList(List<ProductoModel> productoModelList) {
-        this.productoModelList = productoModelList;
-    }*/
-
-    public String getTotalProducto() {
-        return totalProducto;
-    }
-
-    public void setTotalProducto(String totalProducto) {
-        this.totalProducto = totalProducto;
-    }
-
     public void setDocumentId(String documentId) {
     }
 
-    public String getPrecio() {
-        return precio;
+    public List<CarritoModel> getProductoModelList() {
+        return productoModelList;
     }
 
-    public void setPrecio(String precio) {
-        this.precio = precio;
+    public void setProductoModelList(List<CarritoModel> productoModelList) {
+        this.productoModelList = productoModelList;
     }
 
-    public String getCantidad() {
-        return cantidad;
+    public double getPrecioTotal() {
+        return precioTotal;
     }
 
-    public void setCantidad(String cantidad) {
-        this.cantidad = cantidad;
+    public void setPrecioTotal(double precioTotal) {
+        this.precioTotal = precioTotal;
     }
 }

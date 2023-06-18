@@ -67,7 +67,7 @@ public class MisPedidosFragment extends Fragment {
 
         firestore.collection("Pedidos")
                 .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .collection("Orden")
+                .collection("Ordenes")
                 .addSnapshotListener((querySnapshot, e) -> {
                     if (e != null) {
                         // Ha ocurrido un error al obtener los datos de Firestore
@@ -76,24 +76,61 @@ public class MisPedidosFragment extends Fragment {
                     }
 
                     pedidoModelList.clear();
-                    double montoTotal = 0.0;
-                    if (querySnapshot != null){
-                        Map<String, PedidoModel> pedidoMap = new HashMap<>();
 
+
+                    if (querySnapshot != null){
+                        Map<String, Double> pedidoMap = new HashMap<>();
+                        //double montoTotalPedido = 0.0;
                         for (DocumentSnapshot document : querySnapshot.getDocuments()){
                             PedidoModel pedido = document.toObject(PedidoModel.class);
-                            pedido.setEstado("PAGADO");
+
                             String idPedido = pedido.getIdPedido();
-                            pedidoMap.put(idPedido, pedido);
+
+                            /////////////
+                            double montoTotalPedido = pedidoMap.getOrDefault(idPedido, 0.0);
+                            montoTotalPedido += pedido.getPrecioTotal();
+                            pedidoMap.put(idPedido, montoTotalPedido);
+
+                            /*pedido.setMontoTotal(String.valueOf(montoTotalPedido));
+                            pedidoModelList.add(pedido);*/
+                            //pedidoMap.put(idPedido, pedido);
+
+                            //montoTotalPedido += pedido.getPrecioTotal();
 
                         }
 
-                        pedidoModelList.addAll(pedidoMap.values());
+                        for (Map.Entry<String, Double> entry : pedidoMap.entrySet()) {
+                            String idPedido = entry.getKey();
+                            double montoTotalPedido = entry.getValue();
+
+                            PedidoModel pedido = new PedidoModel();
+                            pedido.setIdPedido(idPedido);
+                            pedido.setMontoTotal(String.valueOf(montoTotalPedido));
+
+                            pedido.setEstado("PAGADO");
+
+                            // Recuperar la información de fecha, hora y estado del primer documento con el ID de pedido correspondiente
+                            DocumentSnapshot firstDocument = querySnapshot.getDocuments().stream()
+                                    .filter(document -> document.getString("idPedido").equals(idPedido))
+                                    .findFirst()
+                                    .orElse(null);
+
+                            if (firstDocument != null) {
+                                pedido.setFecha(firstDocument.getString("fecha"));
+                                pedido.setHora(firstDocument.getString("hora"));
+                            }
+                            pedidoModelList.add(pedido);
+                        }
+
+                        //pedidoModelList.addAll(pedidoMap.values());
                         pedidoAdapter.notifyDataSetChanged();
+
+                        /*// Asignar el montoTotal al último pedido
+                        if (!pedidoModelList.isEmpty()) {
+                            PedidoModel ultimoPedido = pedidoModelList.get(pedidoModelList.size() - 1);
+                            ultimoPedido.setMontoTotal(String.valueOf(montoTotalPedido));
+                        }*/
                     }
-
-
-                    //pedidoAdapter.notifyDataSetChanged();
 
                     if (pedidoModelList.isEmpty()) {
                         empty.setVisibility(View.VISIBLE);
@@ -106,6 +143,7 @@ public class MisPedidosFragment extends Fragment {
                     }
 
                     progressBar.setVisibility(View.GONE);
+
                 });
 
         return root;

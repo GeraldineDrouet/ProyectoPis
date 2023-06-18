@@ -60,15 +60,17 @@ public class OrdenActivity extends AppCompatActivity {
                 cartMap.put("precioTotal", model.getPrecioTotal());
                 cartMap.put("img", model.getImg());
 
+
                 firestore.collection("Pedidos").document(auth.getCurrentUser().getUid())
-                        .collection("Orden").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                        .collection("Ordenes").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentReference> task) {
                                 if (task.isSuccessful()) {
                                     String pedidoId = task.getResult().getId();
+
                                     firestore.collection("Pedidos")
                                             .document(auth.getCurrentUser().getUid())
-                                            .collection("Orden")
+                                            .collection("Ordenes")
                                             .document(pedidoId)
                                             .update("idPedido", idPedido)
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {

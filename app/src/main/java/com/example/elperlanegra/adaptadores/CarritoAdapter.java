@@ -70,9 +70,10 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
                                     carritoModelList.remove(carritoModelList.get(position));
-                                    carritoFragment.calcularMontoTotal(carritoModelList);
                                     notifyDataSetChanged();
                                     Toast.makeText(context, "¡¡ÍTEM ELIMINADO!!", Toast.LENGTH_SHORT).show();
+                                    carritoFragment.calcularMontoTotal(carritoModelList);
+
                                 } else {
                                     Toast.makeText(context, "ERROR: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
