@@ -1,5 +1,7 @@
 package com.example.elperlanegra;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,6 +43,7 @@ public class MisPedidosFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,13 +53,15 @@ public class MisPedidosFragment extends Fragment {
         ///////PROGRESS BAR
         progressBar = root.findViewById(R.id.pb_pedidos);
 
+
         ///RECYCLERVIEW////////
         rv_order = root.findViewById(R.id.rv_order);
         rv_order.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv_order.setVisibility(View.GONE);
 
+        Context context = requireContext();
         pedidoModelList = new ArrayList<>();
-        pedidoAdapter = new PedidoAdapter(pedidoModelList);
+        pedidoAdapter = new PedidoAdapter(context, pedidoModelList);
         rv_order.setAdapter(pedidoAdapter);
 
         empty = root.findViewById(R.id.constraint3);
