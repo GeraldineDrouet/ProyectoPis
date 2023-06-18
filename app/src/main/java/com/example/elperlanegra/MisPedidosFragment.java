@@ -104,14 +104,18 @@ public class MisPedidosFragment extends Fragment {
 
                         }
 
+
                         for (Map.Entry<String, Double> entry : pedidoMap.entrySet()) {
                             String idPedido = entry.getKey();
                             double montoTotalPedido = entry.getValue();
 
+                            String montoTotalFormateado = String.format("%.2f", montoTotalPedido);
+
                             PedidoModel pedido = new PedidoModel();
                             pedido.setIdPedido(idPedido);
-                            pedido.setMontoTotal(String.valueOf(montoTotalPedido));
+                            pedido.setMontoTotal(montoTotalFormateado);
 
+                            //String.valueOf(montoTotalPedido)
                             pedido.setEstado("PAGADO");
 
                             // Recuperar la información de fecha, hora y estado del primer documento con el ID de pedido correspondiente
