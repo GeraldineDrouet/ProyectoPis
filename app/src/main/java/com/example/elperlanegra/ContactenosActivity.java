@@ -17,10 +17,8 @@ public class ContactenosActivity extends AppCompatActivity {
 
     ImageView whatsapp, instagram, facebook;
 
-    //CROQUIS
-    ImageView croquis;
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "SetJavaScriptEnabled"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,15 +29,6 @@ public class ContactenosActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        /*/CROQUIS
-        croquis = findViewById(R.id.croquis);
-        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.croquis2);
-        Matrix matrix = new Matrix();
-        matrix.postRotate(90);
-        Bitmap rotatedBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, originalBitmap.getWidth(), originalBitmap.getHeight(), matrix, true);
-        croquis.setImageBitmap(rotatedBitmap);
-        croquis.setScaleType(ImageView.ScaleType.FIT_XY);
-        /////////////*/
 
         whatsapp = findViewById(R.id.whatsapp);
         instagram = findViewById(R.id.instagram);
@@ -76,6 +65,8 @@ public class ContactenosActivity extends AppCompatActivity {
         });
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -86,5 +77,7 @@ public class ContactenosActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 
 }
