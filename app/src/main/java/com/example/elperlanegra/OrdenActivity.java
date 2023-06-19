@@ -16,9 +16,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class OrdenActivity extends AppCompatActivity {
@@ -55,10 +58,16 @@ public class OrdenActivity extends AppCompatActivity {
                 cartMap.put("nombre", model.getNombre());
                 cartMap.put("precio", model.getPrecio());
                 cartMap.put("fecha", model.getFecha());
-                cartMap.put("hora", model.getHora());
+                //cartMap.put("hora", model.getHora());
                 cartMap.put("cantidad", model.getCantidad());
                 cartMap.put("precioTotal", model.getPrecioTotal());
                 cartMap.put("img", model.getImg());
+
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                String horaActual = dateFormat.format(calendar.getTime());
+
+                cartMap.put("hora", horaActual);
 
 
                 firestore.collection("Pedidos").document(auth.getCurrentUser().getUid())

@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.elperlanegra.DetallePedidoActivity;
 import com.example.elperlanegra.R;
 import com.example.elperlanegra.modelos.PedidoModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.PedidoView
 
     Context context;
     List<PedidoModel> pedidoModelList;
+    FirebaseFirestore firestore;
+    FirebaseAuth auth;
 
     public PedidoAdapter(Context context, List<PedidoModel> pedidoModelList) {
         this.context = context;
@@ -45,10 +49,12 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.PedidoView
             public void onClick(View v) {
 
                 Intent intentdetalles = new Intent(context, DetallePedidoActivity.class);
-                //intentdetalles.putExtra("pedidoId", pedidoModelList.get(position).getIdPedido());
+                intentdetalles.putExtra("pedidoId", pedidoModelList.get(position).getIdPedido());
                 context.startActivity(intentdetalles);
             }
         });
+
+
     }
 
     @Override
