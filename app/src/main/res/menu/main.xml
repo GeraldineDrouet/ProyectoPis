@@ -24,5 +24,12 @@
         android:icon="@drawable/ic_action_share"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/action_admin_option"
+        android:title="@string/administrador"
+        android:orderInCategory="115"
+        android:visible="false"
+        app:showAsAction="never"/>
+
 
 </menu>

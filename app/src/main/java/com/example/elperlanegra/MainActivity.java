@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser mUser;
     FirebaseDatabase db;
     Button btn_logout;
+    private PopupMenu popupMenu;
 
 
     @Override
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         authUser.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser() == null){
+                if (firebaseAuth.getCurrentUser() == null) {
                     Toast.makeText(MainActivity.this, "¡SESIÓN CERRADA!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
                     finish();
@@ -108,40 +110,18 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        /*db.getReference().child("Users").child(FirebaseAuth.getInstance().getUid())
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        UserModel userModel = snapshot.getValue(UserModel.class);
-
-                        headerName.setText(userModel.getNombreAp());
-                        headerMail.setText(userModel.getEmail());
-                        Glide.with(MainActivity.this).load(userModel.getFotoPerfil()).into(headerImg);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });*/
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        if (mUser != null && mUser.getEmail().equals("admin@gmail.com")) {
+            MenuItem adminOption = menu.findItem(R.id.action_admin_option);
+            adminOption.setVisible(true);
+        }
         return true;
     }
-
-    /*private void showPopupMenu(View view) {
-        PopupMenu popupMenu = new PopupMenu(this, view);
-        popupMenu.inflate(R.menu.main);
-
-        // Para mostrar el menú debajo de la Toolbar
-        popupMenu.show();
-    }*/
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -158,7 +138,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentContactenos);
                 return true;
             case R.id.action_share:
+                // Aquí va el código para la opción compartir
                 shareAppLink();
+                return true;
+            case R.id.action_admin_option:
+                // Aquí va el código para la opción admin
+                Intent intentAdmin = new Intent(getApplicationContext(), AdminActivity.class);
+                startActivity(intentAdmin);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -179,6 +166,4 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
-
 }
