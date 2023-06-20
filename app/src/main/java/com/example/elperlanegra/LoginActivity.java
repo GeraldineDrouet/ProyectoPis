@@ -1,8 +1,5 @@
 package com.example.elperlanegra;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -90,6 +90,10 @@ public class LoginActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(userEmailLog)){
             Toast.makeText(this, "¡¡Campo [Correo electrónico] está vacío!!", Toast.LENGTH_SHORT).show();
             return;
+        }
+
+        if (userEmailLog.endsWith(" ")) {
+            userEmailLog = userEmailLog.trim();
         }
 
         if (TextUtils.isEmpty(userPassLog)){

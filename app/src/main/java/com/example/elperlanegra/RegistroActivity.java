@@ -97,6 +97,8 @@ public class RegistroActivity extends AppCompatActivity {
         String userEmail = correo.getText().toString();
         String userPass = contrasena.getText().toString();
 
+
+
         //IF por si algún campo está vacío
         if (TextUtils.isEmpty(userName)){
             Toast.makeText(this, "¡¡Campo [Nombre y Apellido] está vacío!!", Toast.LENGTH_SHORT).show();
@@ -118,6 +120,11 @@ public class RegistroActivity extends AppCompatActivity {
             return;
         }
 
+        if (userEmail.endsWith(" ")) {
+            userEmail = userEmail.trim();
+        }
+
+
         if (TextUtils.isEmpty(userPass)){
             Toast.makeText(this, "¡¡Campo [Contraseña] está vacío!!", Toast.LENGTH_SHORT).show();
             return;
@@ -130,13 +137,15 @@ public class RegistroActivity extends AppCompatActivity {
         }
 
         //Creando/Guardando el usuario en la base de datos
+        String finalUserEmail1 = userEmail;
         auth.createUserWithEmailAndPassword(userEmail, userPass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
 
-                    UserModel userModel = new UserModel(userName,userAddress,userPhone,userEmail,userPass);
+                    UserModel userModel = new UserModel(userName,userAddress,userPhone, finalUserEmail1,userPass);
                     String id = task.getResult().getUser().getUid();
+
 
                     database.getReference().child("Users").child(id).setValue(userModel);
 

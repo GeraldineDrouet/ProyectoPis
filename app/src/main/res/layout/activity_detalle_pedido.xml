@@ -135,7 +135,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/teal_200"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="2">
 
                 <TextView
                     android:layout_width="170dp"
@@ -162,14 +162,15 @@
 
                 <TextView
                     android:id="@+id/montototal_detalles"
-                    android:layout_width="wrap_content"
+                    android:layout_width="102dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/alice"
                     android:text="0.00"
                     android:textColor="@color/white"
-                    android:textSize="45sp"
+                    android:textSize="40sp"
                     android:textStyle="bold" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
